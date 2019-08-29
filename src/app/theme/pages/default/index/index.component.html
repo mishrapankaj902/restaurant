@@ -1,0 +1,743 @@
+<!-- BEGIN: Subheader -->
+<div class="m-subheader m-subheader-heading" appunwraptag="">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title">
+                Overview
+            </h3>
+        </div>
+
+    </div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content m-content-section">
+    <!--Begin::index Section-->
+
+    <div class="row">
+        <div class="col-xl-4">
+
+            <div class="revenue_area m-alert m-alert--icon m-alert--outline alert alert-primary" role="alert">
+                <div class="m-alert__actions">
+                    <button type="button" class="btn btn-outline-primary m-btn m-btn--custom m-btn--outline-2x" (click)="modalOpen(content,'')" >
+                       Set Goal
+                    </button>
+                </div>
+
+                <div class="m-portlet m-portlet--bordered-semi m-portlet--space m-portlet--full-height">
+                    <div class="m-portlet__body">
+                        <div class="m-widget25">
+                            <div class="m-widget14__header m--margin-bottom-30">
+                                <h3 class="m-widget14__title">Revenue</h3>
+                                <span class="m-widget14__desc">Total sales this Month</span>
+                            </div>
+                            <span class="m-widget25__price m--font-brand">
+                                {{totalRevenue | currency:'EUR':true}}
+                            </span>
+                            <span class="m-widget25__desc">Total Revenue This Month</span>
+                            <!--begin:: Widgets/Daily Sales-->
+                            <div class="m-widget14">
+
+                                <div class="m-widget14__chart" style="height:120px;">
+                                    <canvas id="m_chart_revenue"></canvas>
+                                </div>
+                            </div>
+                            <!--end:: Widgets/Daily Sales-->
+
+
+                            <div class="m-widget25--progress">
+                                <div class="m-widget25__progress">
+                                    <span class="m-widget25__progress-number">
+                                        {{revenuePercent | number:0}}%
+                                    </span>
+                                    <div class="m--space-10"></div>
+                                    <div class="progress m-progress--sm">
+                                        <div class="progress-bar m--bg-success" role="progressbar" style="width: 63%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <span class="m-widget25__progress-sub">
+                                        Revenue goal <span >{{restaurantGoalsModel.RevenueGoal | currency:'EUR':true}}</span>
+                                    </span>
+                                </div>
+                                <div class="m-widget25__progress">
+                                    <span class="m-widget25__progress-number">
+                                        {{cashierPercent | number:0}}%
+                                    </span>
+                                    <div class="m--space-10"></div>
+                                    <div class="progress m-progress--sm">
+                                        <div class="progress-bar m--bg-success" role="progressbar" style="width: 39%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <span class="m-widget25__progress-sub">
+                                        Cashier goal <span>{{restaurantGoalsModel.CashierGoal | currency:'EUR':true}}</span>
+                                    </span>
+                                </div>
+                                <div class="m-widget25__progress">
+                                    <span class="m-widget25__progress-number">
+                                        {{customerPercent | number:0}}%
+                                    </span>
+                                    <div class="m--space-10"></div>
+                                    <div class="progress m-progress--sm">
+                                        <div class="progress-bar m--bg-brand" role="progressbar" style="width: 54%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <span class="m-widget25__progress-sub">
+                                        Customer goal <span>{{restaurantGoalsModel.CustomerGoal}} peoples</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="m-portlet">
+                <!--begin::Section-->
+                <ng-template #content let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Set Goal</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <form #categoryForm="ngForm" (ngSubmit)="handleFormSubmit() && onSubmit()" class="m-form m-form--fit m-form--label-align-right">
+                        <ng-template #alertSignin></ng-template>
+                        <div class="modal-body">
+                            <div class="m-portlet__body">
+                                <div class="form-group m-form__group">
+                                    <label for="exampleInputEmail1">
+                                        Revenue goal
+                                    </label>
+                                    <input name="revenueGoal"  [(ngModel)]="restaurantGoalsModel.RevenueGoal" type="number" class="form-control m-input m-input--square" id="revGoal" aria-describedby="emailHelp" placeholder="Revenue Goal">
+                                  
+                                </div>
+                                <div class="form-group m-form__group">
+                                    <label for="exampleInputEmail1">
+                                        Cashier goal
+                                    </label>
+                                    <input name="cashierGoal" [(ngModel)]="restaurantGoalsModel.CashierGoal"  type="text" class="form-control m-input m-input--square" id="casGoal" aria-describedby="emailHelp" placeholder="Cashier Goal">
+                                 
+                                </div>
+                                <div class="form-group m-form__group">
+                                    <label for="exampleInputEmail1">
+                                        Customer goal
+                                    </label>
+                                    <input  name="customerGoal"  [(ngModel)]="restaurantGoalsModel.CustomerGoal" type="text" class="form-control m-input m-input--square" id="cusGoal" aria-describedby="emailHelp" placeholder="Customer Goal">
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions">
+                                    <!--<button id="m_submit" type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                                Submit
+                            </button>-->
+                                    <button id="m_login_signin_submitss" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                            <button id="m_login" type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+                        </div>
+                    </form>
+                </ng-template>
+                <!--end::Section-->
+            </div>
+
+
+            <!--end:: Widgets/Product Sales-->
+
+            <div class="m--space-10"></div>
+            <!--growth area start here--->
+            <div class="growth m-portlet m-portlet--full-height m-portlet--skin-light m-portlet--fit">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">
+                                Growth
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="m-portlet__head-tools">
+                        <ul class="m-portlet__nav">
+                            <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+                                <a href="#" class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
+                                    {{growthLabel}}
+                                </a>
+                                <div class="m-dropdown__wrapper">
+                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 36.5px;"></span>
+                                    <div class="m-dropdown__inner">
+                                        <div class="m-dropdown__body">
+                                            <div class="m-dropdown__content">
+                                                <ul class="m-nav">
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <span class="m-nav__link-text" (click)="getAverageGrowth('today')">
+                                                                Today
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <span class="m-nav__link-text" (click)="getAverageGrowth('yesterday')">
+                                                                Yesterday
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <span class="m-nav__link-text" (click)="getAverageGrowth('last7')">
+                                                                Last 7 Days
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <span class="m-nav__link-text" (click)="getAverageGrowth('last30')">
+                                                                Last 30 Days
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <span class="m-nav__link-text" (click)="getAverageGrowth('thismonth')">
+                                                                This Month
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-portlet__body g-portlet__body">
+                    <div class="m-widget21" style="min-height: 420px">
+                        <div class="row">
+                            <div class="col m--pull-right">
+                                <div class="m-widget21__item">
+                                    <span class="m-widget21__icon">
+                                        <a href="#" class="btn btn-brand m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill">
+                                            <i class="la la-glass"></i>
+                                        </a>
+                                    </span>
+                                    <div class="m-widget21__info">
+                                        <span class="m-widget21__title">
+                                            Customer ({{cusomterNumber}})
+                                        </span>
+                                        <br>
+                                        <span class="m-widget21__sub">
+                                            Drink, Dishes, Discount
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col m--align-left">
+                                <div class="m-widget21__item m--pull-left">
+                                    <span class="m-widget21__icon">
+                                        <a href="#" class="btn btn-accent m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill">
+                                            <i class="la la-cube"></i>
+                                        </a>
+                                    </span>
+                                    <div class="m-widget21__info">
+                                        <span class="m-widget21__title">
+                                            Revenue({{growthRevenue | currency:'EUR':true}})
+                                        </span>
+                                        <br>
+                                        <span class="m-widget21__sub">
+                                            Expenses, Loses, Profits
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-widget21__chart m-portlet-fit--sides">
+                            <!--<canvas id="m_chart_adwords_stats"></canvas>-->
+                            <canvas id="m_chart_growth_stats"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--growth area end here-->
+        </div>
+
+        <div class="col-xl-4 col-lg-12">
+            <div class="m-portlet reviews  m-portlet--space reviews main_dashboard no_margin">
+                <div class="top_review">
+                    <h3>Reviews</h3>
+
+                    <div class="show_all">
+                        <h6>  <span data-toggle="modal" (click)="showAllReview()" data-target="#showAllRating" style="cursor:pointer"> show all</span></h6>
+                       
+                        <div class="m-portlet__head-tools">
+
+                            <ul class="m-portlet__nav">
+                                <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+                                    <a href="#" class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
+                                        {{rating}} Stars
+                                    </a>
+                                    <div class="m-dropdown__wrapper">
+                                        <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 36.5px;"></span>
+                                        <div class="m-dropdown__inner">
+                                            <div class="m-dropdown__body">
+                                                <div class="m-dropdown__content">
+                                                    <ul class="m-nav">
+                                                        <li class="m-nav__item">
+                                                            <a href="" class="m-nav__link">
+                                                                <i class="m-nav__link-icon f fa fa-star" aria-hidden="true"></i>
+                                                                <span class="m-nav__link-text" (click)="loadReviewsByRestaurant(5)">
+                                                                    5 Star
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="m-nav__item">
+                                                            <a href="" class="m-nav__link">
+                                                                <i class="m-nav__link-icon f fa fa-star" aria-hidden="true"></i>
+                                                                <span class="m-nav__link-text" (click)="loadReviewsByRestaurant(4)">
+                                                                    4 Star
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="m-nav__item">
+                                                            <a href="" class="m-nav__link">
+                                                                <i class="m-nav__link-icon f fa fa-star" aria-hidden="true"></i>
+                                                                <span class="m-nav__link-text" (click)="loadReviewsByRestaurant(3)">
+                                                                    3 Star
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="m-nav__item">
+                                                            <a href="" class="m-nav__link">
+                                                                <i class="m-nav__link-icon f fa fa-star" aria-hidden="true"></i>
+                                                                <span class="m-nav__link-text" (click)="loadReviewsByRestaurant(2)">
+                                                                    2 Star
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="m-nav__item">
+                                                            <a href="" class="m-nav__link">
+                                                                <i class="m-nav__link-icon f fa fa-star" aria-hidden="true"></i>
+                                                                <span class="m-nav__link-text" (click)="loadReviewsByRestaurant(1)">
+                                                                    1 Star
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div *ngIf="reviews.length<=0">
+                    No reviews
+                </div>
+                <ul>
+                    <li *ngFor="let review of reviews">
+                        <div class="reviewer_detail">
+                            <div class="rev_dp"></div>
+                            <div class="rev_name">{{review.userdetails[0].FirstName}}</div>
+                            <div class="rev_dayago">{{review.CreatedDate | date: 'dd/MM/yyyy'}}</div>
+                            <ul class="rating" *ngIf="review.Stars==5">
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            </ul>
+                            <ul class="rating" *ngIf="review.Stars==4">
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            </ul>
+                            <ul class="rating" *ngIf="review.Stars==3">
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            </ul>
+                            <ul class="rating" *ngIf="review.Stars==2">
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            </ul>
+                            <ul class="rating" *ngIf="review.Stars==1">
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            </ul>
+                            <p>{{review.Review}}</p>
+                        </div>
+                    </li>
+                   
+                </ul>
+                
+                <!--Edit Table Model-->
+                <div class="modal fade" id="showAllRating" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-center">
+                                    All Reviews
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">
+                                        &times;
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <ul>
+                                        <li *ngFor="let review of allReviews">
+                                            <div class="reviewer_detail">
+                                                <div class="rev_dp"></div>
+                                                <div class="rev_name">{{review.userdetails[0].FirstName}}</div>
+                                                <div class="rev_dayago">{{review.CreatedDate | date: 'dd/MM/yyyy'}}</div>
+                                                <ul class="rating" *ngIf="review.Stars==5">
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                </ul>
+                                                <ul class="rating" *ngIf="review.Stars==4">
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                </ul>
+                                                <ul class="rating" *ngIf="review.Stars==3">
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                </ul>
+                                                <ul class="rating" *ngIf="review.Stars==2">
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                </ul>
+                                                <ul class="rating" *ngIf="review.Stars==1">
+                                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                </ul>
+                                                <p>{{review.Review}}</p>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Edit table model End here-->
+
+            </div>
+
+            <div class="dish_popularity main_dashboard no_margin">
+                <div class="top_review content_padding">
+                    <div class="popularity_hdr">
+                        <h3>Dish Popularity</h3>
+                        <h6>Restaurants in your sector</h6>
+                    </div>
+                    <div class="show_all">
+                        <h6>Week 46</h6>
+
+                        <div class="drop_down_btn">
+                            <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                                <span class="m-subheader__daterange-label">
+                                    <span class="m-subheader__daterange-title"></span>
+                                    <span class="m-subheader__daterange-date m--font-brand"></span>
+                                </span>
+                                <a href="#" class="btn btn-sm btn-brand m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill">
+                                    <i class="la la-angle-down"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="popularity_details">
+
+
+                    <li>
+                        <div class="varity varity_one">
+                            <h6>Most ordered dish of the day</h6>
+                            <h4>Fish and Chips</h4>
+                        </div>
+
+
+                    </li>
+                    <li>
+                        <div class="varity varity_two">
+                            <h6>Least ordered dish of the day</h6>
+                            <h4>Potato Salad</h4>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="visitors dish_popularity">
+                <div class="m-widget24">
+                    <div class="m-widget24__item">
+                        <h4 class="m-widget24__title v_title">
+                            Visitor per day
+                            <span class="m-widget24__stats m--font-brand">
+                               {{totalVisitor}}
+                            </span>
+                        </h4>
+
+                        <div class="m--space-10"></div>
+                        <div class="progress m-progress--sm">
+                            <div class="progress-bar m--bg-brand" role="progressbar" style="width: 78%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <span class="m-widget24__change">
+                            Change
+                        </span>
+                        <span class="m-widget24__number">
+                            78%
+                        </span>
+                    </div>
+                </div>
+
+                <div class="m-widget24 m-divider">
+                    <div class="m-widget24__item">
+                        <h4 class="m-widget24__title v_title">
+                            Average group size
+                            <span class="m-widget24__stats m--font-brand">
+                                4
+                            </span>
+                        </h4>
+
+                        <div class="m--space-10"></div>
+                        <div class="progress m-progress--sm">
+                            <div class="progress-bar m--bg-brand" role="progressbar" style="width: 78%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <span class="m-widget24__change">
+                            Change
+                        </span>
+                        <span class="m-widget24__number">
+                            50%
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
+        <div class="col-xl-4">
+
+            <!--begin:: Widgets/Outbound Bandwidth-->
+            <div class="spendure m-portlet  m-portlet--space m-portlet--bordered-semi m-portlet--half-height m-portlet--fit" style="min-height: 300px">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">
+                                Average Spendure
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div class="m-portlet__head-tools">
+                        <ul class="m-portlet__nav">
+                            <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+                                <a href="#" class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
+                                  {{spendureLabel}}
+                                </a>
+                                <div class="m-dropdown__wrapper">
+                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 36.5px;"></span>
+                                    <div class="m-dropdown__inner">
+                                        <div class="m-dropdown__body">
+                                            <div class="m-dropdown__content">
+                                                <ul class="m-nav">
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <span class="m-nav__link-text" (click)="getAverageSpendure('today')">
+                                                                Today
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <span class="m-nav__link-text" (click)="getAverageSpendure('yesterday')">
+                                                                Yesterday
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <span class="m-nav__link-text" (click)="getAverageSpendure('last7')">
+                                                                Last 7 Days
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <span class="m-nav__link-text" (click)="getAverageSpendure('last30')">
+                                                                Last 30 Days
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <span class="m-nav__link-text" (click)="getAverageSpendure('thismonth')">
+                                                                This Month
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <!--begin::Widget5-->
+                    <div class="m-widget20">
+                        <div class="m-widget20__number m--font-warning">
+                            € {{averageSpendure}}
+                        </div>
+                        <div class="m-widget20__chart" style="height:160px;">
+                            <!--<canvas id="m_chart_bandwidth2"></canvas>-->
+                            <canvas id="m_chart_spendure"></canvas>
+                        </div>
+                    </div>
+                    <!--end::Widget 5-->
+                </div>
+            </div>
+            <!--end:: Widgets/Outbound Bandwidth-->
+            <div class="m--space-30"></div>
+
+            <div class="avg_portal m-portlet m-portlet--bordered-semi m-portlet--half-height m-portlet--fit" style="min-height: 350px">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">
+                                Average Tip
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="m-portlet__head-tools">
+                        <ul class="m-portlet__nav">
+                            <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+                                <a href="#" class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
+                                    {{tipsLabel}}
+                                </a>
+                                <div class="m-dropdown__wrapper">
+                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 36.5px;"></span>
+                                    <div class="m-dropdown__inner">
+                                        <div class="m-dropdown__body">
+                                            <div class="m-dropdown__content">
+                                                <ul class="m-nav">
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <span class="m-nav__link-text" (click)="getAverageTip('today')">
+                                                                Today
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <span class="m-nav__link-text" (click)="getAverageTip('yesterday')">
+                                                                Yesterday
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <span class="m-nav__link-text" (click)="getAverageTip('last7')">
+                                                                Last 7 Days
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <span class="m-nav__link-text" (click)="getAverageTip('last30')">
+                                                                Last 30 days
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <span class="m-nav__link-text" (click)="getAverageTip('thismonth')">
+                                                                This Month
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <!--begin::Widget5-->
+                    <div class="m-widget20">
+                        <div class="m-widget20__number m--font-success">
+                            €{{averageTip}}
+                        </div>
+                        <div class="m-widget20__chart" style="height:160px;">
+                            <!--<canvas id="m_chart_bandwidth1"></canvas>-->
+                            <canvas id="m_chart_tips"></canvas>
+                        </div>
+                    </div>
+                    <!--end::Widget 5-->
+                </div>
+            </div>
+
+            <div class="top_menu_items average_waiting">
+                <table>
+                    <tr>
+                        <td>
+                            <h5>Average waiting time</h5>
+                            <h6>from order to serving</h6>
+                        </td>
+                        <td><span class="waiting_time">18 min</span></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="top_menu_items average_waiting">
+                <table>
+                    <tr>
+                        <td>
+                            <h5>Top Menu Item</h5>
+                            <h6>Restaurant in your sector</h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5>Steak and chips</h5>
+                            <h6>Competitor #1</h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5>Double  Cheeseburger</h5>
+                            <h6>Competitor #2</h6>
+                        </td>
+
+                        <td>
+                            <h5>Fried Duck Burger</h5>
+                            <h6>Competitor #3</h6>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>

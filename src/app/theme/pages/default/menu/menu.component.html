@@ -1,0 +1,871 @@
+<!-- BEGIN: Subheader -->
+<div class="m-subheader" appunwraptag="">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title">
+                Menu
+            </h3>
+        </div>
+        <div>
+            <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                <span class="m-subheader__daterange-label">
+                    <span class="m-subheader__daterange-title"></span>
+                    <span class="m-subheader__daterange-date m--font-brand"></span>
+                </span>
+                <a href="#" class="btn btn-sm btn-brand m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill">
+                    <i class="la la-angle-down"></i>
+                </a>
+            </span>
+        </div>
+    </div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+    <div class="row">
+        <div class="col-xl-4 col-lg-12">
+            <div>
+                <!--begin::Portlet-->
+                <div class="m-portlet m-portlet--tabs menu_edit">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Menu
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="m-portlet__head-tools">
+                            <ul class="nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand  m-tabs-line--right m-tabs-line-danger" role="tablist">
+                                <li class="nav-item m-tabs__item">
+                                    <a (click)="modalOpen(content,'')" class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_8_1" role="tab" ng-reflect-href="#m_tabs_8_1">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                        new
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-portlet m-portlet--tabs">
+                    <div class="m-portlet__head">
+                        <!---->
+                        <div class="inner_nav_items m-portlet__head-tools resto_menu">
+                            <ul class="nav nav-tabs m-tabs m-tabs-line  m-tabs-line-danger" role="tablist">
+                                <li (click)="filterMenu('Drinks')" class="nav-item m-tabs__item">
+                                    <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_portlet_tab_1_1" role="tab">
+                                        Drinks
+                                    </a>
+                                </li>
+                                <li class="nav-item m-tabs__item">
+                                    <a (click)="filterMenu('Starters')" class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_tab_1_2" role="tab">
+                                        Starters
+                                    </a>
+                                </li>
+                                <li class="nav-item m-tabs__item">
+                                    <a (click)="filterMenu('Main')" class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_tab_1_3" role="tab">
+                                        Main
+                                    </a>
+                                </li>
+                                <li class="nav-item m-tabs__item">
+                                    <a (click)="filterMenu('Desert')" class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_tab_1_4" role="tab">
+                                        Desert
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body menu_table_des">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="m_portlet_tab_1_1">
+                                <div class="row menu_table">
+                                    <div class="col-md-6 product_area" *ngFor="let menu of FilteredMenues; let i=index">
+                                        <div class="product_name">#{{i+1}} {{menu.Menu.Name}}</div>
+                                        <div class="product_prices">
+                                          €{{menu.Menu.CostExcelTax}}  <span class="dish_varity">{{menu.MenuCategory.Name}}</span>
+                                          <span class="edit_price">
+                                            <i class="fa fa-trash-o" aria-hidden="true" (click)="delete(menu.Menu._id)"></i>
+                                            <i class="fa fa-pencil" aria-hidden="true" (click)="modalOpen(content,menu.Menu._id)"></i>
+                                          </span>
+                                        </div>
+                                    </div>
+                                    <div class="no_data" *ngIf="FilteredMenues?.length <= 0">
+                                        No Data
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="m_portlet_tab_1_2">
+                                <div class="row menu_table">
+                                    <div class="col-md-6 product_area" *ngFor="let menu of FilteredMenues; let i=index">
+                                        <div class="product_name">#{{i+1}} {{menu.Menu.Name}}</div>
+                                        <div class="product_prices">
+                                          €{{menu.Menu.CostExcelTax}}  <span class="dish_varity">{{menu.MenuCategory.Name}}</span>
+                                          <span class="edit_price">
+                                            <i class="fa fa-trash-o" aria-hidden="true" (click)="delete(menu.Menu._id)"></i>
+                                            <i class="fa fa-pencil" aria-hidden="true" (click)="modalOpen(content,menu.Menu._id)"></i>
+                                          </span>
+                                        </div>
+                                    </div>
+                                    <div class="no_data" *ngIf="FilteredMenues?.length <= 0">
+                                        No Data
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="m_portlet_tab_1_3">
+                                <div class="row menu_table">
+                                    <div class="col-md-6 product_area" *ngFor="let menu of FilteredMenues; let i=index">
+                                        <div class="product_name">#{{i+1}} {{menu.Menu.Name}}</div>
+                                        <div class="product_prices">
+                                          €{{menu.Menu.CostExcelTax}} <span class="dish_varity">{{menu.MenuCategory.Name}}</span>
+                                          <span class="edit_price">
+                                            <i class="fa fa-trash-o" aria-hidden="true" (click)="delete(menu.Menu._id)"></i>
+                                            <i class="fa fa-pencil" aria-hidden="true" (click)="modalOpen(content,menu.Menu._id)"></i>
+                                          </span>
+                                        </div>
+                                    </div>
+                                    <div class="no_data" *ngIf="FilteredMenues?.length <= 0">
+                                        No Data
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="m_portlet_tab_1_4">
+                                <div class="row menu_table">
+                                    <div class="col-md-6 product_area" *ngFor="let menu of FilteredMenues; let i=index">
+                                        <div class="product_name">#{{i+1}} {{menu.Menu.Name}}</div>
+                                        <div class="product_prices">
+                                          €{{menu.Menu.CostExcelTax}}  <span class="dish_varity">{{menu.MenuCategory.Name}}</span>
+                                          <span class="edit_price">
+                                            <i class="fa fa-trash-o" aria-hidden="true" (click)="delete(menu.Menu._id)"></i>
+                                            <i class="fa fa-pencil" aria-hidden="true" (click)="modalOpen(content,menu.Menu._id)"></i>
+                                          </span>
+                                        </div>
+                                    </div>
+                                    <div class="no_data" *ngIf="FilteredMenues?.length <= 0">
+                                        No Data
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Portlet-->
+            </div>
+            <div class="col-xl-12 col-lg-12 reviews">
+                <div class="top_review">
+                    <h3>Reviews</h3>
+                    <div class="show_all">
+                        <h6> show all</h6>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Best
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <button class="dropdown-item" type="button">
+                                    All
+                                </button>
+                                <button class="dropdown-item" type="button">
+                                    Option 2
+                                </button>
+                                <button class="dropdown-item" type="button">
+                                    Option 3
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul>
+                    <li>
+                        <div class="reviewer_detail">
+                            <div class="rev_dp"></div>
+                            <div class="rev_name">Mario</div>
+                            <div class="rev_dayago">2 days ago</div>
+                            <ul class="rating">
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            </ul>
+                            <p>This is my favourite restaurant, I especially loved the flavorful dishes together with</p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="reviewer_detail">
+                            <div class="rev_dp"></div>
+                            <div class="rev_name">Mario</div>
+                            <div class="rev_dayago">2 days ago</div>
+                            <ul class="rating">
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            </ul>
+                            <p>This is my favourite restaurant, I especially loved the flavorful dishes together with</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="reviewer_detail">
+                            <div class="rev_dp"></div>
+                            <div class="rev_name">Mario</div>
+                            <div class="rev_dayago">2 days ago</div>
+                            <ul class="rating">
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            </ul>
+                            <p>This is my favourite restaurant, I especially loved the flavorful dishes together with</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="reviewer_detail">
+                            <div class="rev_dp"></div>
+                            <div class="rev_name">Mario</div>
+                            <div class="rev_dayago">2 days ago</div>
+                            <ul class="rating">
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            </ul>
+                            <p>This is my favourite restaurant, I especially loved the flavorful dishes together with</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-12 top_menu_items">
+            <table>
+                <tr>
+                    <td>
+                        <h5>Top Menu Item</h5>
+                        <h6>Restaurant in your sector</h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Steak and chips</h5>
+                        <h6>Competitor #1</h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Double  Cheeseburger</h5>
+                        <h6>Competitor #2</h6>
+                    </td>
+
+                    <td>
+                        <h5>Fried Duck Burger</h5>
+                        <h6>Competitor #3</h6>
+                    </td>
+                </tr>
+            </table>
+
+
+
+        </div>
+        <div class="col-xl-4 col-lg-12">
+            <!--begin::Portlet-->
+            <div class="m-portlet m-portlet--tabs menu_edit">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">Timed Events</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="times_event">
+
+                <div class="event_detail" *ngFor="let offer of Offers">
+                    <h5>Top Menu Item</h5>
+                    <h6>Restaurant in your sector</h6>
+                    <div class="event_price_dtls">
+                        <h2>{{offer.Offer.Title}} <br />-€ {{offer.Product.Price.$numberDecimal}}</h2>
+                        <h4>{{ getOfferRemainingDays(offer.Offer.StartDate,offer.Offer.EndDate)}} day left <span>{{offer.Offer.StartDate | date: 'dd/MM/yyyy'}} - {{offer.Offer.EndDate | date: 'dd/MM/yyyy'}}</span></h4>
+                        <!-- <h4>1 day left <span>12/5/2018 - 12/6/2018</span></h4>-->
+                    </div>
+                    <ul class="day_wise">
+                        <li>M</li>
+                        <li>T</li>
+                        <li>W</li>
+                        <li>T</li>
+                        <li class="day_active">F</li>
+                        <li>S</li>
+                        <li>S</li>
+                    </ul>
+                    <div class="hours_detail">19:00 - 23:59</div>
+                </div>
+
+            </div>
+
+
+
+            <div class="col-xl-12 col-lg-12 dish_popularity">
+                <div class="top_review">
+                    <div class="popularity_hdr">
+                        <h3>Dish Popularity</h3>
+                        <h6>Restaurants in your sector</h6>
+                    </div>
+                    <div class="show_all">
+                        <h6>Week 46</h6>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="today">Today: </span>Jan 31
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <button class="dropdown-item" type="button">
+                                    option1
+                                </button>
+                                <button class="dropdown-item" type="button">
+                                    Option 2
+                                </button>
+                                <button class="dropdown-item" type="button">
+                                    Option 3
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="popularity_details">
+
+
+                    <li>
+                        <div class="varity varity_one">
+                            <h6>Most ordered dish of the day</h6>
+                            <h4>Fish and Chips</h4>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="varity varity_two">
+                            <h6>Least ordered dish of the day</h6>
+                            <h4>Potato Salad</h4>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="col-lg-12">
+            <!--begin::Portlet-->
+            <div class="m-portlet" id="m_portlet">
+                <div class="" id="m_accordion" role="tablist">
+                    <div class="m-accordion m-accordion--default m-accordion--toggle-arrow kitchen-accordion" id="m_accordion_5" role="tablist">
+                        <div class="m-accordion__item m-accordion__item--brand">
+                            <div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_5_item_3_head" data-toggle="collapse" href="#m_accordion_5_item_3_body" aria-expanded=" false">
+
+                                <span class="m-accordion__item-title">
+                                    Kitchen orders
+                                    <span class="m-accordion__item-mode"></span>
+                                </span>
+
+                            </div>
+                            <div class="m-accordion__item-body collapse" id="m_accordion_5_item_3_body">
+                                <div class="m-accordion__item-content">
+                                    <div class="order_details">
+                                        <ul class="background-even">
+                                            <li><h3>Dish#</h3></li>
+                                            <li><h3>Status#</h3></li>
+                                            <li> <h3>Table#</h3></li>
+                                        </ul>
+
+                                        <ul class="background-odd" *ngFor="let k of RestaurantOrders">
+                                            <li>02</li>
+                                            <li *ngIf="k.OrderStatus== 'Serving'">
+                                                <div class="m-dropdown m-dropdown--inline m-dropdown--small m-dropdown--arrow m-dropdown--align-left" m-dropdown-toggle="hover">
+                                                    <a href="#" class="m-dropdown__toggle btn btn-brand-out-of-order dropdown-toggle">
+                                                        {{k.OrderStatus}}
+                                                    </a>
+                                                    <div class="m-dropdown__wrapper">
+                                                        <span class="m-dropdown__arrow m-dropdown__arrow--left"></span>
+                                                        <div class="m-dropdown__inner">
+                                                            <div class="m-dropdown__body">
+                                                                <div class="m-dropdown__content">
+                                                                    <ul class="m-nav">
+                                                                        <li class="m-nav__item  be_prepared">
+                                                                            <a href="" class="m-nav__link" (click)="updateReservationStatus(k,'Prepared')">
+                                                                                <span class="m-nav__link-text">
+                                                                                    Prepared
+                                                                                </span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="m-nav__item recieved" (click)="updateReservationStatus(k,'Received')">
+                                                                            <a href="" class="m-nav__link">
+                                                                                <span class="m-nav__link-text">
+                                                                                    Received
+                                                                                </span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="m-nav__item out_order" (click)="updateReservationStatus(k,'Serving')">
+
+                                                                            <a href="" class="m-nav__link">
+                                                                                <span class="m-nav__link-text">
+                                                                                    Serving
+                                                                                </span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li *ngIf="k.OrderStatus== 'Prepared'">
+                                                <div class="m-dropdown m-dropdown--inline m-dropdown--small m-dropdown--arrow m-dropdown--align-left" m-dropdown-toggle="hover">
+                                                    <a href="#" class="m-dropdown__toggle btn btn-brand-being-prepared dropdown-toggle">
+                                                        {{k.OrderStatus}}
+                                                    </a>
+                                                    <div class="m-dropdown__wrapper">
+                                                        <span class="m-dropdown__arrow m-dropdown__arrow--left"></span>
+                                                        <div class="m-dropdown__inner">
+                                                            <div class="m-dropdown__body">
+                                                                <div class="m-dropdown__content">
+                                                                    <ul class="m-nav">
+                                                                        <li class="m-nav__item  be_prepared">
+                                                                            <a href="" class="m-nav__link" (click)="updateReservationStatus(k,'Prepared')">
+                                                                                <span class="m-nav__link-text">
+                                                                                    Prepared
+                                                                                </span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="m-nav__item recieved" (click)="updateReservationStatus(k,'Received')">
+
+                                                                            <a href="" class="m-nav__link">
+                                                                                <span class="m-nav__link-text">
+                                                                                    Received
+                                                                                </span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="m-nav__item out_order" (click)="updateReservationStatus(k,'Serving')">
+
+                                                                            <a href="" class="m-nav__link">
+                                                                                <span class="m-nav__link-text">
+                                                                                    Serving
+                                                                                </span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li *ngIf="k.OrderStatus== 'Received'">
+                                                <div class="m-dropdown m-dropdown--inline m-dropdown--small m-dropdown--arrow m-dropdown--align-left" m-dropdown-toggle="hover">
+                                                    <a href="#" class="m-dropdown__toggle btn btn-brand-order-received dropdown-toggle">
+                                                        {{k.OrderStatus}}
+                                                    </a>
+                                                    <div class="m-dropdown__wrapper">
+                                                        <span class="m-dropdown__arrow m-dropdown__arrow--left"></span>
+                                                        <div class="m-dropdown__inner">
+                                                            <div class="m-dropdown__body">
+                                                                <div class="m-dropdown__content">
+                                                                    <ul class="m-nav">
+                                                                        <li class="m-nav__item  be_prepared">
+                                                                            <a href="" class="m-nav__link" (click)="updateReservationStatus(k,'Prepared')">
+                                                                                <span class="m-nav__link-text">
+                                                                                    Prepared
+                                                                                </span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="m-nav__item recieved" (click)="updateReservationStatus(k,'Received')">
+                                                                            <a href="" class="m-nav__link">
+                                                                                <span class="m-nav__link-text">
+                                                                                    Received
+                                                                                </span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="m-nav__item out_order" (click)="updateReservationStatus(k,'Serving')">
+                                                                            <a href="" class="m-nav__link">
+                                                                                <span class="m-nav__link-text">
+                                                                                    Serving
+                                                                                </span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li> Table1</li>
+                                        </ul>
+                                        <ul>
+                                            <li></li>
+                                            <li>
+                                                <button aria-label="Close" class="btn btn-outline-primary m-btn m-btn--custom m-btn--outline-2x collapsed" data-toggle="collapse" href="#m_accordion_5_item_3_body" aria-expanded="false" type="button">
+                                                    Close
+                                                </button>
+                                            </li>
+                                            <li> </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+
+    <div class="row">
+
+    </div>
+    <div class="col-xl-8">
+        <!--end::Portlet-->
+        <!--begin::Portlet-->
+        <div class="m-portlet">
+
+            <!--begin::Section-->
+            <div class="">
+                <ng-template #content let-c="close" let-d="dismiss">
+                    <div class="modal-header add_menu_form_hdr">
+                        <h4 class="modal-title">New Menu Item</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body add_menu_form_bdy">
+                        <form #menuForm="ngForm" (ngSubmit)="handleFormSubmit() && onSubmit()" class="m-form m-form--fit m-form--label-align-right">
+
+                          <div class="m-portlet__body">
+                            <div class="row form-group m-form__group">
+                              <label class="col-lg-3 col-sm-3 col-xs-12 col-form-label" for="exampleInputEmail1">
+                                Name Menu Item
+                              </label>
+                              <div class="col-lg-6 col-sm-6 col-xs-12">
+                                <input name="Name" [(ngModel)]="menuModel.Name" #name="ngModel" type="text" class="form-control m-input m-input--square" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
+
+                                <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                  {{ErrorModel.Name}}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row form-group m-form__group">
+                              <label class="col-lg-3 col-sm-3 col-xs-12 col-form-label" for="exampleInputEmail1">
+                                Description
+                              </label>
+                              <div class="col-lg-6 col-sm-6 col-xs-12">
+                                <input type="text" name="Description" [(ngModel)]="menuModel.Description" #description="ngModel" placeholder="Description">
+                              </div>
+                              <div class="col-lg-3 col-sm-3 col-xs-12">
+                                <div class="add_photos">
+                                  <div class="add_file_here">
+                                    <i class="fa fa-link" aria-hidden="true"></i><span> add photos</span>
+                                    <input type="file" class="hide_file">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+
+                            <div class="row form-group m-form__group">
+                              <label class="col-lg-3 col-sm-3 col-xs-12 col-form-label" for="MenuCategory">
+                                Caterogy
+                              </label>
+                              <div class="col-lg-6 col-sm-6 col-xs-12">
+                                <select name="MenuCategory" [(ngModel)]="menuModel.MenuCategoryId" #menuCategoryId="ngModel" class="form-control m-input m-input--square" id="MenuCategory">
+                                  <option value="0">--Select--</option>
+                                  <option [ngValue]="k._id" *ngFor="let k of MenuCategories">
+                                    {{k.Name}}
+                                  </option>
+                                </select>
+                                <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                  {{ErrorModel.MenuCategory}}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row form-group m-form__group">
+                              <label class="col-lg-3 col-sm-3 col-xs-12 col-form-label" for="exampleSelect1">
+                                Ingredients
+                              </label>
+                              <div class="col-lg-6 col-sm-6 col-xs-12">
+                                <select name="Product" [(ngModel)]="menuModel.ProductId" class="form-control m-input m-input--square" id="Product">
+                                  <option value="0">--Select--</option>
+                                  <option [ngValue]="k._id" *ngFor="let k of Products">
+                                    {{k.Name}}
+                                  </option>
+                                </select>
+                                <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                  {{ErrorModel.Product}}
+                                </div>
+                              </div>
+                            </div>
+
+                            <!--<div class="row form-group m-form__group">
+                              <label class="col-lg-3 col-sm-3 col-xs-12 col-form-label" for="exampleInputEmail1">
+                                Price Delivery
+                              </label>
+                              <div class="col-lg-6 col-sm-6 col-xs-12">
+                                <input type="text" name="PriceDelivery" [(ngModel)]="menuModel.PriceDelivery" #priceDelivery="ngModel" placeholder="Price Delivery">
+                              </div>
+                              <div class="col-lg-3 col-sm-3 col-xs-12">
+                                <div class="price_check">
+                                  <label class="m-checkbox">
+                                    <input type="checkbox"><span></span>
+                                  </label>= Price
+                                </div>
+                              </div>
+                            </div>-->
+
+                            <div class="row form-group m-form__group">
+                              <label class="col-lg-3 col-sm-3 col-xs-12 col-form-label" for="Price">
+                                Price
+                              </label>
+                              <div class="col-lg-6 col-sm-6 col-xs-12">
+                                <input name="CostExcelTax" [(ngModel)]="menuModel.CostExcelTax" #costExcelTax="ngModel" type="text" placeholder="Costs excl. Tax" id="Price">
+                              </div>
+                            </div>
+                            <div class="row form-group m-form__group">
+                              <label class="col-lg-3 col-sm-3 col-xs-12 col-form-label">
+                                Dietary restrictions
+                              </label>
+                              <div class="col-lg-9 col-sm-9 col-xs-9">
+                                <div class="row">
+                                  <div class="price_check dietary-check-box"  *ngFor="let data of dietaryFormArray">
+                                    <label class="m-checkbox">
+                                      <input type="checkbox" value="data._id" (change)="onChange(data._id, $event.target.checked)" [checked]="menuModel.DietaryType ? menuModel.DietaryType.indexOf(data._id) >= 0 :false"><span></span>
+                                    </label>{{data.DietaryName}}
+                                  </div>
+                                  <!--<div class="price_check dietary-check-box">
+                                    <label class="m-checkbox">
+                                      <input type="checkbox"><span></span>
+                                    </label>Halal
+                                  </div>
+                                  <div class="price_check dietary-check-box">
+                                    <label class="m-checkbox">
+                                      <input type="checkbox"><span></span>
+                                    </label>Organic Food
+                                  </div>
+                                  <div class="price_check dietary-check-box">
+                                    <label class="m-checkbox">
+                                      <input type="checkbox"><span></span>
+                                    </label>Vegan
+                                  </div>
+                                  <div class="price_check dietary-check-box">
+                                    <label class="m-checkbox">
+                                      <input type="checkbox"><span></span>
+                                    </label>Vegatarian Dish
+                                  </div>-->
+                                </div>
+                              </div>
+                            </div>
+                              <div class="row form-group m-form__group">
+                                <div class="col-lg-4 col-sm-4 col-xs-12">
+                                  <h5>Tax Level</h5>
+
+                                  <div class="m-radio-list">
+                                    <label class="m-radio">
+                                      <input name="TaxLevel" [(ngModel)]="menuModel.TaxLevel" type="radio" value="6 low">
+                                      6% low
+                                      <span></span>
+                                    </label>
+                                    <label class="m-radio">
+                                      <input name="TaxLevel" [(ngModel)]="menuModel.TaxLevel" type="radio" value="21 high">
+                                      21%  high
+                                      <span></span>
+                                    </label>
+                                    <label class="m-radio">
+                                      <input name="TaxLevel" [(ngModel)]="menuModel.TaxLevel" type="radio" value="none">
+                                      none
+                                      <span></span>
+                                    </label>
+                                  </div>
+                                </div>
+
+                                <div class="col-lg-4 col-sm-4 col-xs-12">
+                                  <h5>Tax level take away</h5>
+
+                                  <div class="m-radio-list">
+                                    <label class="m-radio">
+                                      <input name="TaxLevelTakeAway" [(ngModel)]="menuModel.TaxLevelTakeAway" type="radio" value="6 low">
+                                      6% low
+                                      <span></span>
+                                    </label>
+                                    <label class="m-radio">
+                                      <input name="TaxLevelTakeAway" [(ngModel)]="menuModel.TaxLevelTakeAway" type="radio" value="21 high">
+                                      21%  high
+                                      <span></span>
+                                    </label>
+                                    <label class="m-radio">
+                                      <input name="TaxLevelTakeAway" [(ngModel)]="menuModel.TaxLevelTakeAway" type="radio" value="none">
+                                      none
+                                      <span></span>
+                                    </label>
+                                  </div>
+                                </div>
+
+                                <div class="col-lg-4 col-sm-4 col-xs-12">
+                                  <h5>Tax level delivery</h5>
+
+                                  <div class="m-radio-list">
+                                    <label class="m-radio">
+                                      <input name="TaxLevelDelivery" [(ngModel)]="menuModel.TaxLevelDelivery" type="radio" value="6 low">
+                                      6% low
+                                      <span></span>
+                                    </label>
+                                    <label class="m-radio">
+                                      <input name="TaxLevelDelivery" [(ngModel)]="menuModel.TaxLevelDelivery" type="radio" value="21 high">
+                                      21%  high
+                                      <span></span>
+                                    </label>
+                                    <label class="m-radio">
+                                      <input name="TaxLevelDelivery" [(ngModel)]="menuModel.TaxLevelDelivery" type="radio" value="none">
+                                      none
+                                      <span></span>
+                                    </label>
+                                  </div>
+                                </div>
+
+                              </div>
+
+                              <div class="row form-group m-form__group">
+                                <label class="col-lg-3 col-sm-3 col-xs-12 col-form-label" for="exampleInputEmail1">
+                                  Barcode
+                                </label>
+                                <div class="col-lg-6 col-sm-6 col-xs-12">
+                                  <input type="text" name="Barcode" [(ngModel)]="menuModel.Barcode" #barcode="ngModel" placeholder="barcode">
+                                </div>
+                              </div>
+
+                              <div class="row form-group m-form__group">
+                                <label class="col-lg-3 col-sm-3 col-xs-12 col-form-label" for="exampleInputEmail1">
+                                  Discount event
+                                </label>
+                                <div class="col-lg-6 col-sm-6 col-xs-12">
+                                  <input type="text" name="DiscountEvent" [(ngModel)]="menuModel.DiscountEvent" #discountEvent="ngModel" placeholder="Discount event">
+                                </div>
+                              </div>
+
+
+                              <div class="row form-group m-form__group reduction_amount">
+
+                                <label class="col-4" for="example_input_full_name">
+                                  Reduction amount
+                                </label>
+
+                                <label class="col-6" for="example_input_full_name">
+                                  Runtime event
+                                </label>
+
+                              </div>
+
+                              <div class="row form-group m-form__group reduction_amount_fld">
+                                <div class="col-2">
+                                  <input name="ReductionAmount" [(ngModel)]="menuModel.ReductionAmount" #reductionAmount="ngModel" class="form-control m-input" placeholder="€" type="text">
+                                </div>
+                                <div class="col-2">	</div>
+                                <div class="col-2">
+                                  <input name="day" [(ngModel)]="Day" class="form-control m-input" placeholder="" type="text">
+                                </div><span class="seperator_icn">/</span>
+                                <div class="col-2">
+                                  <input name="month" [(ngModel)]="Month" class="form-control m-input" placeholder="" type="text">
+                                </div> <span class="seperator_icn">/</span>
+                                <div class="col-2">
+                                  <input name="year" [(ngModel)]="Year" class="form-control m-input" placeholder="" type="text">
+                                </div>
+                              </div>
+
+
+
+                              <div class="row form-group m-form__group reduction_amount">
+                                <label class="col-4" for="example_input_full_name">
+                                  Time
+                                </label>
+                                <label class="col-6" for="example_input_full_name">
+                                  Recurring event
+                                </label>
+                              </div>
+
+                              <div class="row form-group m-form__group reduction_amount_fld">
+                                <div class="col-2">
+                                  <input name="RunTimeEventTime" [(ngModel)]="menuModel.RunTimeEventTime" #runTimeEventTime="ngModel" class="form-control m-input" placeholder="" type="text">
+                                </div>
+                                <span class="seperator_icn">:</span>
+                                <div class="col-2">	<input class="form-control m-input" placeholder="" type="text"></div>
+
+                                <div class="col-lg-5 col-sm-5 col-xs-7">
+                                  <ul class="select_day_are">
+                                    <li>M</li>
+                                    <li>T</li>
+                                    <li class="day_active">W</li>
+                                    <li>T</li>
+                                    <li>F</li>
+                                    <li>S</li>
+                                    <li>S</li>
+                                  </ul>
+                                </div>
+
+                              </div>
+
+                              <div class="row form-group m-form__group">
+                                <label class="col-lg-3 col-sm-3 col-xs-12" for="exampleSelect1">
+                                  Restaurant
+                                </label>
+                                <div class="col-lg-6 col-sm-6 col-xs-12">
+                                  <select name="Restaurant" [(ngModel)]="menuModel.RestaurantId" class="form-control m-input m-input--square" id="Restaurant">
+                                    <option value="0">--Select--</option>
+                                    <option [ngValue]="k.Restaurant._id" *ngFor="let k of Restaurants">
+                                      {{k.Restaurant.Name}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                    {{ErrorModel.Restaurant}}
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row form-group m-form__group">
+                                <label class="col-lg-3 col-sm-3 col-xs-12 col-form-label" for="exampleSelect1">
+                                  Restaurant
+                                </label>
+                                <div class="col-lg-9 col-sm-9 col-xs-12">
+                                  <input multiple type="file" id="file" (change)="handleFileInput($event.target.files)" class="form-control m-input m-input--square">
+                                </div>
+                              </div>
+
+                              <div class="form-group m-form__group">
+                                <div class="uploaded_element" *ngFor="let image of MenuImages">
+                                  <img class="element_uploaded" src={{image.Path}} /><span (click)="deleteImage(image._id)" class="del_element">X</span>
+                                </div>
+                              </div>
+
+                              <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions restaurant_frm">
+                                  <button (click)="CloseModel()" type="reset" class="btn btn-outline-primary" id="m_submit">
+                                    Close
+                                  </button>
+                                  <button type="submit" class="btn btn-primary" id="m_submit">
+                                    Save
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+</form>
+                    </div>
+
+                </ng-template>
+            </div>
+            <!--end::Section-->
+        </div>
+        <!--end::Portlet-->
+        <!--begin::Portlet-->
+    </div>
+</div>
+

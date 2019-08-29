@@ -1,0 +1,103 @@
+<!-- END: Subheader -->
+<div class="m-content">
+    <!--Begin::Section-->
+    <div class="row">
+        <div class="col-xl-8">
+            <!--end::Portlet-->
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <!--begin::Section-->
+                <ng-template #content let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add/Update Restaurant Category</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    
+                    <form #categoryForm="ngForm" (ngSubmit)="handleFormSubmit() && onSubmit()" class="m-form m-form--fit m-form--label-align-right">
+                        <ng-template #alertSignin></ng-template>
+                        <div class="modal-body">
+                            <div class="m-portlet__body">
+                                <div class="form-group m-form__group">
+                                    <label for="exampleInputEmail1">
+                                        Name
+                                    </label>
+                                    <input name="name" #name="ngModel" [(ngModel)]="restaurantCategoryModel.Name" type="text" class="form-control m-input m-input--square" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
+                                    <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                        {{ErrorModel.Name}}
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group">
+                                    <label for="exampleInputEmail1">
+                                        Description
+                                    </label>
+                                    <input name="description" #description="ngModel" [(ngModel)]="restaurantCategoryModel.Description" type="text" class="form-control m-input m-input--square" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Description">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions">
+                                    <!--<button id="m_submit" type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                                        Submit
+                                    </button>-->
+                                    <button id="m_login_signin_submitss" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                            <button id="m_login" type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+                        </div>
+                    </form>
+                </ng-template>
+                <!--end::Section-->
+            </div>
+            <!--end::Portlet-->
+            <!--begin::Portlet-->
+            <!--begin:: Widgets/Best Sellers-->
+           
+            <div class="m-portlet m-portlet--full-height">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">
+                                Restaurant Category
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="m-portlet__head-tools">
+                        <button class="btn btn-sm btn-outline-primary" (click)="modalOpen(content,'')">Add New</button>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <!--begin::Content-->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="m_widget5_tab1_content" aria-expanded="true">
+                            <!--begin::m-widget5-->
+                            <div class="m-widget5">
+                              <div class="m-widget5__item"  (click)="getRestaurantsByCatId(category._id)" *ngFor="let category of RestaurantCategories">
+                                <div class="m-widget5__pic">
+                                  {{category.Name}}
+                                </div>
+                                <div class="m-widget5__pic">
+                                  {{category.Description}}
+                                </div>
+                                <div class="m-widget5__pic text-right">
+                                  <button class="btn btn-sm btn-outline-primary" (click)="modalOpen(content,category._id)">Edit</button>
+                                  <button class="btn btn-sm btn-secondary" (click)="delete(category._id)">Delete</button>
+                                </div>
+                              </div>
+                            </div>
+                            <!--end::m-widget5-->
+                        </div>
+                    </div>
+                    <!--end::Content-->
+                </div>
+            </div>
+            <!--end:: Widgets/Best Sellers-->
+        </div>
+    </div>
+    <!--End::Section-->
+   
+</div>

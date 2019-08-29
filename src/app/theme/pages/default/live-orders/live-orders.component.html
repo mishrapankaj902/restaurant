@@ -1,0 +1,187 @@
+<div class="table_management m-content">
+  <div class="row">
+    <div class="col-md-6 col-lg-4  margin-btm-10 ripple" *ngFor="let k of RestaurantOrders ; let i = index"
+      [hidden]="k.OrderStatus=='done'">
+      <div class="card-header"
+        [ngClass]="{'serving': k.OrderStatus=='Serving', 'prepared':k.OrderStatus=='Prepared' , 'received':k.OrderStatus=='Received'  }">
+        <div class="row">
+          <div class="col-md-8 col-sm-8 col-xs-6">
+            {{k.Order.TableName}}
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-4 offset-right-0">
+            <button type="button" class="btn btn-outline-primary pull-right" [ngbPopover]="popContent" triggers="manual"
+              placement="bottom" #p="ngbPopover" autoClose="true" (click)="togglePopover(p , i , k)">
+              <i class="fa fa-ellipsis-v pull-right font-xl padding-top-2"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+      <div class="card-body card-body-height disable-scrollbars" (click)="onTap(i)">
+        <div class="row set-bottom-border">
+          <div class="col-md-2  col-sm-2 col-xs-2 margin-btm-10">
+            {{k.Order.ProductQty}}x
+          </div>
+          <div class="col-md-10 col-sm-10 col-xs-10 font-bold-500">
+            {{k.Order.ProductName}}
+          </div>
+        </div>
+      </div>
+      <div class="card-footer"
+        [ngClass]="{'serving': k.OrderStatus=='Serving', 'prepared':k.OrderStatus=='Prepared' , 'received':k.OrderStatus=='Received'  }">
+        Footer</div>
+    </div>
+  </div>
+</div>
+<ng-template #popContent>
+  <div class="row">
+    <div class="col-md-12" (click)="changeStatus('Received')">
+      Received
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" (click)="changeStatus('Prepared')">
+      Prepared
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" (click)="changeStatus('Serving')">
+      Serving
+    </div>
+  </div>
+
+</ng-template>
+<!-- <div class="table_management m-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="m-portlet resto_portlet">
+                <div class="m-section">
+                    <div class="m-section__sub">
+                        <h5>Live Orders</h5>
+                        <p>Restaurant in your sector</p>
+                    </div>
+                    <div class="m-section__content">
+                        <table class="table m-table m-table--head-bg-brand table-striped">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th width="20%">Table nr</th>
+                                    <th width="20%">Dish Name</th>
+                                    <th width="10%">Dish#</th>
+                                    <th class="text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let k of RestaurantOrders">
+                                    <td scope="row">{{k.Order.TableName}}</td>
+                                    <td><strong>{{k.Order.ProductName}}</strong></td>
+                                    <td>{{k.Order.ProductQty}}</td>
+                                    <td>
+                                      <table class="status_order_table" *ngIf="k.OrderStatus== 'Received'">
+                                        <tr>
+                                          <td>
+                                            <div class="m-dropdown m-dropdown--inline m-dropdown--small m-dropdown--arrow m-dropdown--align-right" m-dropdown-toggle="hover">
+                                              <a href="#" class="m-dropdown__toggle btn btn-danger dropdown-toggle">order received</a>
+                                              <div class="m-dropdown__wrapper">
+                                                <span class="m-dropdown__arrow m-dropdown__arrow--right"></span>
+                                                <div class="m-dropdown__inner">
+                                                  <div class="m-dropdown__body">
+                                                    <div class="m-dropdown__content">
+                                                      <ul class="m-nav">
+                                                        <li class="m-nav__item">
+                                                          <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Received')">Received</span></a>
+                                                        </li>
+                                                        <li class="m-nav__item">
+                                                          <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Prepared')">Prepared</span></a>
+                                                        </li>
+                                                        <li class="m-nav__item">
+                                                          <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Serving')">Serving</span></a>
+                                                        </li>
+                                                      </ul>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </td>
+                                          <td></td>
+                                          <td></td>
+                                        </tr>
+                                      </table>
+
+                                      <table class="status_order_table" *ngIf="k.OrderStatus== 'Prepared'">
+                                        <tr>
+
+                                          <td></td>
+
+                                          <td>
+                                            <div class="m-dropdown m-dropdown--inline m-dropdown--small m-dropdown--arrow m-dropdown--align-right" m-dropdown-toggle="hover">
+                                              <a href="#" class="m-dropdown__toggle btn btn-warning dropdown-toggle">being prepared</a>
+                                              <div class="m-dropdown__wrapper">
+                                                <span class="m-dropdown__arrow m-dropdown__arrow--right"></span>
+                                                <div class="m-dropdown__inner">
+                                                  <div class="m-dropdown__body">
+                                                    <div class="m-dropdown__content">
+                                                      <ul class="m-nav">
+                                                        <li class="m-nav__item">
+                                                          <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Received')">Received</span></a>
+                                                        </li>
+                                                        <li class="m-nav__item">
+                                                          <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Prepared')">Prepared</span></a>
+                                                        </li>
+                                                        <li class="m-nav__item">
+                                                          <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Serving')">Serving</span></a>
+                                                        </li>
+                                                      </ul>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </td>
+
+                                          <td></td>
+                                        </tr>
+                                      </table>
+
+                                      <table class="status_order_table" *ngIf="k.OrderStatus== 'Serving'">
+                                        <tr>
+                                          <td></td>
+                                          <td></td>
+                                          <td>
+                                            <div class="m-dropdown m-dropdown--inline m-dropdown--small m-dropdown--arrow m-dropdown--align-right" m-dropdown-toggle="hover">
+                                              <a href="#" class="m-dropdown__toggle btn btn-success dropdown-toggle">out for serving</a>
+                                              <div class="m-dropdown__wrapper">
+                                                <span class="m-dropdown__arrow m-dropdown__arrow--right"></span>
+                                                <div class="m-dropdown__inner">
+                                                  <div class="m-dropdown__body">
+                                                    <div class="m-dropdown__content">
+                                                      <ul class="m-nav">
+                                                        <li class="m-nav__item">
+                                                          <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Received')">Received</span></a>
+                                                        </li>
+                                                        <li class="m-nav__item">
+                                                          <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Prepared')">Prepared</span></a>
+                                                        </li>
+                                                        <li class="m-nav__item">
+                                                          <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Serving')">Serving</span></a>
+                                                        </li>
+                                                      </ul>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                      </table>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

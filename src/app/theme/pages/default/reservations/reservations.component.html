@@ -1,0 +1,299 @@
+<!-- BEGIN: Subheader -->
+<!-- END: Subheader -->
+<div class="m-content">
+  <div class="row">
+    <div class="col-lg-12">
+      <!--begin::Portlet-->
+      <div class="m-portlet" id="m_portlet">
+        <div class="m-portlet__head">
+          <div class="m-portlet__head-caption">
+            <div class="m-portlet__head-title">
+              <!--<span class="m-portlet__head-icon">
+                  <i class="flaticon-map-location"></i>
+              </span>-->
+              <h3 class="m-portlet__head-text">
+                Reservations
+              </h3>
+            </div>
+          </div>
+          <div class="m-portlet__head-tools">
+            <ul class="m-portlet__nav">
+              <li class="m-portlet__nav-item">
+                <a (click)="modalOpen(content,'')" href="#" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air">
+                  <span>
+                    <i class="la la-plus"></i>
+                    <span>
+                      Add Reservation
+                    </span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="m-portlet__body">
+          <div id="m_calendar"></div>
+        </div>
+        <div class="" id="m_accordion" role="tablist">
+          <div class="m-accordion m-accordion--default m-accordion--toggle-arrow kitchen-accordion" id="m_accordion_5" role="tablist">
+            <div class="m-accordion__item m-accordion__item--brand">
+              <div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_5_item_3_head" data-toggle="collapse" href="#m_accordion_5_item_3_body" aria-expanded="false">
+
+                <span class="m-accordion__item-title">
+                  Kitchen orders
+                  <span class="m-accordion__item-mode"></span>
+                </span>
+
+              </div>
+              <div class="m-accordion__item-body collapse" id="m_accordion_5_item_3_body">
+                <div class="m-accordion__item-content">
+                  <div class="order_details">
+                    <ul class="background-even">
+                      <li><h3>Dish#</h3></li>
+                      <li><h3>Status#</h3></li>
+                      <li> <h3>Table#</h3></li>
+                    </ul>
+
+                    <ul class="background-odd" *ngFor="let k of RestaurantOrders">
+                      <li>02</li>
+                      <li *ngIf="k.OrderStatus== 'Serving'">
+                        <div class="m-dropdown m-dropdown--inline m-dropdown--small m-dropdown--arrow m-dropdown--align-left" m-dropdown-toggle="hover">
+                          <a href="#" class="m-dropdown__toggle btn btn-brand-out-of-order dropdown-toggle">
+                            {{k.OrderStatus}}
+                          </a>
+                          <div class="m-dropdown__wrapper">
+                            <span class="m-dropdown__arrow m-dropdown__arrow--left"></span>
+                            <div class="m-dropdown__inner">
+                              <div class="m-dropdown__body">
+                                <div class="m-dropdown__content">
+                                  <ul class="m-nav">
+                                    <li class="m-nav__item  be_prepared">
+                                      <a href="" class="m-nav__link" (click)="updateReservationStatus(k,'Prepared')">
+                                        <span class="m-nav__link-text">
+                                          Prepared
+                                        </span>
+                                      </a>
+                                    </li>
+                                    <li class="m-nav__item recieved" (click)="updateReservationStatus(k,'Received')">
+                                      <a href="" class="m-nav__link">
+                                        <span class="m-nav__link-text">
+                                          Received
+                                        </span>
+                                      </a>
+                                    </li>
+                                    <li class="m-nav__item out_order" (click)="updateReservationStatus(k,'Serving')">
+
+                                      <a href="" class="m-nav__link">
+                                        <span class="m-nav__link-text">
+                                          Serving
+                                        </span>
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li *ngIf="k.OrderStatus== 'Prepared'">
+                        <div class="m-dropdown m-dropdown--inline m-dropdown--small m-dropdown--arrow m-dropdown--align-left" m-dropdown-toggle="hover">
+                          <a href="#" class="m-dropdown__toggle btn btn-brand-being-prepared dropdown-toggle">
+                            {{k.OrderStatus}}
+                          </a>
+                          <div class="m-dropdown__wrapper">
+                            <span class="m-dropdown__arrow m-dropdown__arrow--left"></span>
+                            <div class="m-dropdown__inner">
+                              <div class="m-dropdown__body">
+                                <div class="m-dropdown__content">
+                                  <ul class="m-nav">
+                                    <li class="m-nav__item  be_prepared">
+                                      <a href="" class="m-nav__link" (click)="updateReservationStatus(k,'Prepared')">
+                                        <span class="m-nav__link-text">
+                                          Prepared
+                                        </span>
+                                      </a>
+                                    </li>
+                                    <li class="m-nav__item recieved" (click)="updateReservationStatus(k,'Received')">
+
+                                      <a href="" class="m-nav__link">
+                                        <span class="m-nav__link-text">
+                                          Received
+                                        </span>
+                                      </a>
+                                    </li>
+                                    <li class="m-nav__item out_order" (click)="updateReservationStatus(k,'Serving')">
+
+                                      <a href="" class="m-nav__link">
+                                        <span class="m-nav__link-text">
+                                          Serving
+                                        </span>
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li *ngIf="k.OrderStatus== 'Received'">
+                        <div class="m-dropdown m-dropdown--inline m-dropdown--small m-dropdown--arrow m-dropdown--align-left" m-dropdown-toggle="hover">
+                          <a href="#" class="m-dropdown__toggle btn btn-brand-order-received dropdown-toggle">
+                            {{k.OrderStatus}}
+                          </a>
+                          <div class="m-dropdown__wrapper">
+                            <span class="m-dropdown__arrow m-dropdown__arrow--left"></span>
+                            <div class="m-dropdown__inner">
+                              <div class="m-dropdown__body">
+                                <div class="m-dropdown__content">
+                                  <ul class="m-nav">
+                                    <li class="m-nav__item  be_prepared">
+                                      <a href="" class="m-nav__link" (click)="updateReservationStatus(k,'Prepared')">
+                                        <span class="m-nav__link-text">
+                                          Prepared
+                                        </span>
+                                      </a>
+                                    </li>
+                                    <li class="m-nav__item recieved" (click)="updateReservationStatus(k,'Received')">
+                                      <a href="" class="m-nav__link">
+                                        <span class="m-nav__link-text">
+                                          Received
+                                        </span>
+                                      </a>
+                                    </li>
+                                    <li class="m-nav__item out_order" (click)="updateReservationStatus(k,'Serving')">
+                                      <a href="" class="m-nav__link">
+                                        <span class="m-nav__link-text">
+                                          Serving
+                                        </span>
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li> Table1</li>
+                    </ul>
+                    <ul>
+                      <li></li>
+                      <li>
+                        <button aria-label="Close" class="btn btn-outline-primary m-btn m-btn--custom m-btn--outline-2x collapsed" data-toggle="collapse" href="#m_accordion_5_item_3_body" aria-expanded="false" type="button">
+                          Close
+                        </button>
+                      </li>
+                      <li> </li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end::Portlet-->
+    </div>
+  </div>
+</div>
+
+<div class="m-portlet">
+  <!--begin::Section-->
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Add Reservation</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <form #categoryForm="ngForm" class="m-form m-form--fit m-form--label-align-right">
+      <ng-template #alertSignin></ng-template>
+      <div class="modal-body">
+        <div class="m-portlet__body">
+          <div class="form-group m-form__group">
+            <label for="exampleInputEmail1">
+              Table Quantity
+            </label>
+            <input name="Quantity" #name="ngModel" [(ngModel)]="tableReservationModel.TableReservationQuantity" type="number" class="form-control m-input m-input--square" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Quantity">
+            <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+              {{ErrorModel.Quantity}}
+            </div>
+          </div>
+          <div class="form-group m-form__group">
+            <label for="exampleInputEmail1">
+              User
+            </label>
+            <select name="UserId" [(ngModel)]="tableReservationModel.UserId" class="form-control m-input m-input--square" id="UserId">
+              <option value="0">--Select--</option>
+              <option [ngValue]="k._id" *ngFor="let k of Users">
+                {{k.FullName}}
+              </option>
+            </select>
+            <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+              {{ErrorModel.User}}
+            </div>
+          </div>
+          <div class="form-group m-form__group">
+            <label for="exampleInputEmail1">
+              Table
+            </label>
+            <select name="Table" [(ngModel)]="tableReservationModel.TableId" class="form-control m-input m-input--square" id="Table">
+              <option value="0">--Select--</option>
+              <option [ngValue]="k._id" *ngFor="let k of VacantTables">
+                {{k.Name}}
+              </option>
+            </select>
+            <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+              {{ErrorModel.Table}}
+            </div>
+          </div>
+          <div class="form-group m-form__group">
+            <label for="exampleInputEmail1">
+              Restaurant
+            </label>
+            <select name="Restaurant" [(ngModel)]="tableReservationModel.RestaurantId" class="form-control m-input m-input--square" id="Restaurant">
+              <option value="0">--Select--</option>
+              <option [ngValue]="k._id" *ngFor="let k of Restaurants">
+                {{k.Name}}
+              </option>
+            </select>
+            <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+              {{ErrorModel.Restaurant}}
+            </div>
+          </div>
+          <div class="form-group m-form__group">
+            <label for="exampleInputEmail1">
+              Reservation Date
+            </label>
+            <angular2-date-picker name="dt" (onDateSelect)="onDateSelect($event)"
+                                  [(ngModel)]="date"
+                                  [settings]="settings">
+            </angular2-date-picker>
+            <!-- <ngb-datepicker #dp [(ngModel)]="tableReservationModel.TableReservationDate" (navigate)="date = $event.next"></ngb-datepicker>-->
+            <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+              {{ErrorModel.Date}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="m-portlet__foot m-portlet__foot--fit">
+          <div class="m-form__actions">
+            <!--<button id="m_submit" type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                Submit
+            </button>-->
+            <button (click)="onSubmit()" id="m_login_signin_submitss" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+              Submit
+            </button>
+          </div>
+        </div>
+        <button id="m_login" type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+      </div>
+    </form>
+  </ng-template>
+  <!--end::Section-->
+</div>

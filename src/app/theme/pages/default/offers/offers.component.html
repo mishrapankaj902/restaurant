@@ -1,0 +1,173 @@
+<!-- BEGIN: Subheader -->
+
+<div class="m-content">
+    <!--Begin::Section-->
+    <div class="row">
+        <div class="col-xl-8">
+            <!--end::Portlet-->
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <!--begin::Section-->
+                <ng-template #content let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add/Update Offer</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    
+                    <form #categoryForm="ngForm" (ngSubmit)="handleFormSubmit() && onSubmit()" class="m-form m-form--fit m-form--label-align-right">
+                        <ng-template #alertSignin></ng-template>
+                        <div class="modal-body">
+                          <div class="m-portlet__body">
+                            <div class="form-group m-form__group">
+                              <label for="exampleInputEmail1">
+                                Title
+                              </label>
+                              <input name="Title" #name="ngModel" [(ngModel)]="offerModel.Title" type="text" class="form-control m-input m-input--square" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Title">
+                              <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                {{ErrorModel.Title}}
+                              </div>
+                            </div>
+                            <div class="form-group m-form__group">
+                              <label for="exampleInputEmail1">
+                                Description
+                              </label>
+                              <input name="description" #description="ngModel" [(ngModel)]="offerModel.Description" type="text" class="form-control m-input m-input--square" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Description">
+                            </div>
+                            <div class="form-group m-form__group">
+                              <label for="exampleInputEmail1">
+                                Restaurant
+                              </label>
+                              <select name="Restaurant" [(ngModel)]="offerModel.RestaurantId" class="form-control m-input m-input--square" id="Restaurant">
+                                <option value="0">--Select--</option>
+                                <option [ngValue]="k._id" *ngFor="let k of Restaurants">
+                                  {{k.Name}}
+                                </option>
+                              </select>
+                              <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                {{ErrorModel.Restaurant}}
+                              </div>
+                            </div>
+                            <div class="form-group m-form__group">
+                              <label for="exampleInputEmail1">
+                                Product
+                              </label>
+                              <select name="Product" [(ngModel)]="offerModel.ProductId" class="form-control m-input m-input--square" id="Product">
+                                <option value="0">--Select--</option>
+                                <option [ngValue]="k._id" *ngFor="let k of Products">
+                                  {{k.Name}}
+                                </option>
+                              </select>
+                              <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                {{ErrorModel.Product}}
+                              </div>
+                            </div>
+                            <div class="form-group m-form__group">
+                              <label for="exampleInputEmail1">
+                                Product Qty.
+                              </label>
+                              <input (keypress)="numberOnly($event)" name="ProductQty" #name="ngModel" [(ngModel)]="offerModel.ProductQty" type="text" class="form-control m-input m-input--square" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ProductQty">
+                              <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                {{ErrorModel.ProductQty}}
+                              </div>
+                            </div>
+                            <div class="form-group m-form__group">
+                              <label for="exampleInputEmail1" style="display:block;text-align:left;">
+                                Discount
+                              </label>
+                              <input name="discount" #description="ngModel" [(ngModel)]="offerModel.Discount" type="Number" class="form-control m-input m-input--square" id="discount" aria-describedby="discount" placeholder="Discount" style="display:inline-block;width:85%">
+                              <input class="form-control m-input m-input--square" type="text" value="%" placeholder="%" style="display:inline-block;width:14%" disabled>
+                            </div>
+                            <div class="form-group m-form__group">
+                              <label for="exampleInputEmail1">
+                                Start Date - End Date
+                              </label>
+                              <input class="form-control m-input m-input--square" [(ngModel)]="DateModel" type="text" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event, daterange)" />
+
+                              <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                {{ErrorModel.Date}}
+                              </div>
+                            </div>
+                            <div class="form-group m-form__group">
+                              <label for="exampleInputEmail1">
+                                Upload Image
+                              </label>
+                              <input multiple type="file" id="file" (change)="handleFileInput($event.target.files)" class="form-control m-input m-input--square">
+                              <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                {{ErrorModel.Image}}
+                              </div>
+                            </div>
+                            <div class="form-group m-form__group">
+                              <div class="uploaded_element" *ngFor="let image of OfferImages">
+                                <img class="element_uploaded" src={{image.Path}} /><span (click)="deleteImage(image._id)" class="del_element">X</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions">
+                                    <!--<button id="m_submit" type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                                        Submit
+                                    </button>-->
+                                    <button id="m_login_signin_submitss" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                            <button id="m_login" type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+                        </div>
+                    </form>
+                </ng-template>
+                <!--end::Section-->
+            </div>
+            <!--end::Portlet-->
+            <!--begin::Portlet-->
+            <!--begin:: Widgets/Best Sellers-->
+           
+            <div class="m-portlet m-portlet--full-height">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                        <div class="m-portlet__head-title">
+                            <h3 class="m-portlet__head-text">
+                                Offers
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="m-portlet__head-tools">
+                        <button class="btn btn-sm btn-outline-primary" (click)="modalOpen(content,'')">Add New</button>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <!--begin::Content-->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="m_widget5_tab1_content" aria-expanded="true">
+                            <!--begin::m-widget5-->
+                            <div class="m-widget5">
+                               
+                                <div class="m-widget5__item" *ngFor="let offer of Offers">
+                                    <div class="m-widget5__pic">
+                                        {{offer.Offer.Title}}
+                                    </div>
+                                    <div class="m-widget5__pic">
+                                        {{offer.Offer.Description}}
+                                    </div>
+                                    <div class="m-widget5__pic text-right">
+                                        <button class="btn btn-sm btn-outline-primary" (click)="modalOpen(content,offer.Offer._id)">Edit</button>
+                                        <button class="btn btn-sm btn-secondary" (click)="delete(offer.Offer._id)">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::m-widget5-->
+                        </div>
+                    </div>
+                    <!--end::Content-->
+                </div>
+            </div>
+            <!--end:: Widgets/Best Sellers-->
+        </div>
+    </div>
+    <!--End::Section-->
+   
+</div>

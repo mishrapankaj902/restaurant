@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="MongoDb" id="Project_3809e21" template="Default" database="MongoDb" >
+	<schema name="MijnMenu" catalogname="MijnMenu" >
+		<table name="bookmark" >
+			<column name="_id" type="oid" length="800" decimal="0" jt="-8" mandatory="y" autoincrement="y" />
+			<column name="Key" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="FavoriteCounter" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="RestaurantId" type="oid" length="800" decimal="0" jt="-8" mandatory="y" />
+			<column name="RestaurantName" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="CreatedDate" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="ModifiedDate" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="Ref" virtual="y" to_schema="MijnMenu" to_table="restaurants" >
+				<fk_column name="RestaurantId" pk="_id" />
+			</fk>
+		</table>
+		<table name="images" >
+			<column name="_id" type="oid" length="800" decimal="0" jt="-8" mandatory="y" autoincrement="y" />
+			<column name="EntityType" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="EntityId" type="oid" length="800" decimal="0" jt="-8" mandatory="y" />
+			<column name="Name" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="Path" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="CreatedDate" type="date" length="800" decimal="0" jt="91" mandatory="y" />
+			<column name="ModifiedDate" type="date" length="800" decimal="0" jt="91" mandatory="y" />
+			<column name="__v" type="integer" length="800" decimal="0" jt="4" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+		</table>
+		<table name="menucategories" >
+			<column name="_id" type="oid" length="800" decimal="0" jt="-8" mandatory="y" autoincrement="y" />
+			<column name="Name" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="CreatedDate" type="date" length="800" decimal="0" jt="91" mandatory="y" />
+			<column name="ModifiedDate" type="date" length="800" decimal="0" jt="91" mandatory="y" />
+			<column name="__v" type="integer" length="800" decimal="0" jt="4" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+		</table>
+		<table name="menus" >
+			<column name="_id" type="oid" length="800" decimal="0" jt="-8" mandatory="y" autoincrement="y" />
+			<column name="Name" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="MenuCategoryId" type="oid" length="800" decimal="0" jt="-8" mandatory="y" />
+			<column name="ProductId" type="oid" length="800" decimal="0" jt="-8" mandatory="y" />
+			<column name="RestaurantId" type="oid" length="800" decimal="0" jt="-8" mandatory="y" />
+			<column name="CreatedDate" type="date" length="800" decimal="0" jt="91" mandatory="y" />
+			<column name="ModifiedDate" type="date" length="800" decimal="0" jt="91" mandatory="y" />
+			<column name="__v" type="integer" length="800" decimal="0" jt="4" mandatory="y" />
+			<column name="Barcode" type="string" length="800" decimal="0" jt="12" />
+			<column name="CostExcelTax" type="integer" length="800" decimal="0" jt="4" />
+			<column name="Description" type="string" length="800" decimal="0" jt="12" />
+			<column name="DiscountEvent" type="string" length="800" decimal="0" jt="12" />
+			<column name="PriceDelivery" type="integer" length="800" decimal="0" jt="4" />
+			<column name="ReductionAmount" type="integer" length="800" decimal="0" jt="4" />
+			<column name="RunTimeEventTime" type="string" length="800" decimal="0" jt="12" />
+			<column name="TaxLevel" type="string" length="800" decimal="0" jt="12" />
+			<column name="TaxLevelDelivery" type="string" length="800" decimal="0" jt="12" />
+			<column name="TaxLevelTakeAway" type="string" length="800" decimal="0" jt="12" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="Ref" virtual="y" to_schema="MijnMenu" to_table="menucategories" >
+				<fk_column name="MenuCategoryId" pk="_id" />
+			</fk>
+			<fk name="Ref" virtual="y" to_schema="MijnMenu" to_table="products" >
+				<fk_column name="ProductId" pk="_id" />
+			</fk>
+			<fk name="Ref" virtual="y" to_schema="MijnMenu" to_table="restaurants" >
+				<fk_column name="RestaurantId" pk="_id" />
+			</fk>
+		</table>
+		<table name="oders" >
+			<column name="_id" type="oid" length="800" decimal="0" jt="-8" mandatory="y" autoincrement="y" />
+			<column name="UserId" type="oid" length="800" decimal="0" jt="-8" mandatory="y" />
+			<column name="OrderDetails" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="RestaurantId" type="oid" length="800" decimal="0" jt="-8" mandatory="y" />
+			<column name="RestaurantName" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="CustomerPaymentMethod" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="OrderNumber" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="OrderStatus" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="Timestamp" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="TotalPrice" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="CreatedDate" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="ModifiedDate" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="Ref" virtual="y" to_schema="MijnMenu" to_table="users" >
+				<fk_column name="UserId" pk="_id" />
+			</fk>
+			<fk name="fk_oders_restaurants" virtual="y" to_schema="MijnMenu" to_table="restaurants" >
+				<fk_column name="RestaurantId" pk="_id" />
+			</fk>
+		</table>
+		<table name="orderdetails" >
+			<column name="_id" type="oid" length="800" decimal="0" jt="-8" mandatory="y" autoincrement="y" />
+			<column name="Order" type="oid" length="800" decimal="0" jt="-8" mandatory="y" />
+			<column name="Quantity" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="CreatedDate" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="ModifiedDate" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="Ref" virtual="y" to_schema="MijnMenu" to_table="oders" >
+				<fk_column name="Order" pk="_id" />
+			</fk>
+		</table>
+		<table name="products" >
+			<column name="_id" type="oid" length="800" decimal="0" jt="-8" mandatory="y" autoincrement="y" />
+			<column name="Name" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="Description" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="Quantity" type="integer" length="800" decimal="0" jt="4" mandatory="y" />
+			<column name="Image" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="Price" type="decimal128" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="CreatedDate" type="date" length="800" decimal="0" jt="91" mandatory="y" />
+			<column name="ModifiedDate" type="date" length="800" decimal="0" jt="91" mandatory="y" />
+			<column name="__v" type="integer" length="800" decimal="0" jt="4" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+		</table>
+		<table name="restaurantcategories" >
+			<column name="_id" type="oid" length="800" decimal="0" jt="-8" mandatory="y" autoincrement="y" />
+			<column name="Name" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="CreatedDate" type="date" length="800" decimal="0" jt="91" mandatory="y" />
+			<column name="ModifiedDate" type="date" length="800" decimal="0" jt="91" mandatory="y" />
+			<column name="__v" type="integer" length="800" decimal="0" jt="4" mandatory="y" />
+			<column name="Description" type="string" length="800" decimal="0" jt="12" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+		</table>
+		<table name="restaurants" >
+			<column name="_id" type="oid" length="800" decimal="0" jt="-8" mandatory="y" autoincrement="y" />
+			<column name="Reviews" type="list" length="800" decimal="0" jt="4999545" mandatory="y" />
+			<column name="Name" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="Email" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="RestaurantCategoryId" type="oid" length="800" decimal="0" jt="-8" mandatory="y" />
+			<column name="Address" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="UserId" type="oid" length="800" decimal="0" jt="-8" mandatory="y" />
+			<column name="Images" type="list" length="800" decimal="0" jt="4999545" mandatory="y" />
+			<column name="Description" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="CreatedDate" type="date" length="800" decimal="0" jt="91" mandatory="y" />
+			<column name="ModifiedDate" type="date" length="800" decimal="0" jt="91" mandatory="y" />
+			<column name="__v" type="integer" length="800" decimal="0" jt="4" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="Ref" virtual="y" to_schema="MijnMenu" to_table="restaurantcategories" >
+				<fk_column name="RestaurantCategoryId" pk="_id" />
+			</fk>
+			<fk name="Ref" virtual="y" to_schema="MijnMenu" to_table="users" >
+				<fk_column name="UserId" pk="_id" />
+			</fk>
+		</table>
+		<table name="roles" >
+			<column name="_id" type="oid" length="800" decimal="0" jt="-8" mandatory="y" autoincrement="y" />
+			<column name="Role" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+		</table>
+		<table name="tablereservation" >
+			<column name="_id" type="oid" length="800" decimal="0" jt="-8" mandatory="y" autoincrement="y" />
+			<column name="FirstName" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="LastName" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="MiddleName" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="UserId" type="oid" length="800" decimal="0" jt="-8" mandatory="y" />
+			<column name="RestaurantId" type="oid" length="800" decimal="0" jt="-8" mandatory="y" />
+			<column name="RestaurantName" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="TableReservationQuantity" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="CreatedDate" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="ModifiedDate" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="TableReservationDate" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<fk name="Ref" virtual="y" to_schema="MijnMenu" to_table="users" >
+				<fk_column name="UserId" pk="_id" />
+			</fk>
+			<fk name="fk_tablereservation" virtual="y" to_schema="MijnMenu" to_table="restaurants" >
+				<fk_column name="RestaurantId" pk="_id" />
+			</fk>
+		</table>
+		<table name="users" >
+			<column name="_id" type="oid" length="800" decimal="0" jt="-8" mandatory="y" autoincrement="y" />
+			<column name="FirstName" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="LastName" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="EmailAddress" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="Password" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="FireBaseId" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="RoleId" type="string" length="800" decimal="0" jt="12" mandatory="y" />
+			<column name="CreatedDate" type="date" length="800" decimal="0" jt="91" mandatory="y" />
+			<column name="ModifiedDate" type="date" length="800" decimal="0" jt="91" mandatory="y" />
+			<column name="__v" type="integer" length="800" decimal="0" jt="4" mandatory="y" />
+			<index name="_id_" unique="PRIMARY_KEY" >
+				<column name="_id" />
+			</index>
+			<index name="EmailAddress_1" unique="UNIQUE" >
+				<column name="EmailAddress" />
+			</index>
+			<fk name="Ref" virtual="y" to_schema="MijnMenu" to_table="roles" >
+				<fk_column name="RoleId" pk="_id" />
+			</fk>
+		</table>
+	</schema>
+	<connector name="MongoDb" database="MongoDb" driver_class="com.dbschema.MongoJdbcDriver" driver_jar="mongojdbc1.2.jar" driver_desc="No Authentication&#13;Connect using MongoDb URI using the Advanced tab/enforce custom URI. Details in Help.&#13;Connectivity logs are available in Help / Output Log." host="localhost" port="27017" instance="MijnMenu" />
+	<layout name="Default Layout" id="Layout_5b0d766" show_relation="columns" >
+		<entity schema="MijnMenu" name="users" color="BED3F4" x="48" y="112" />
+		<entity schema="MijnMenu" name="restaurants" color="BED3F4" x="464" y="368" />
+		<entity schema="MijnMenu" name="roles" color="BED3F4" x="224" y="176" />
+		<entity schema="MijnMenu" name="oders" color="3986C1" x="368" y="48" />
+		<entity schema="MijnMenu" name="orderdetails" color="3986C1" x="736" y="48" />
+		<entity schema="MijnMenu" name="bookmark" color="3986C1" x="304" y="544" />
+		<entity schema="MijnMenu" name="tablereservation" color="3986C1" x="96" y="400" />
+		<entity schema="MijnMenu" name="menus" color="BED3F4" x="672" y="240" />
+		<entity schema="MijnMenu" name="menucategories" color="BED3F4" x="928" y="192" />
+		<entity schema="MijnMenu" name="products" color="BED3F4" x="928" y="416" />
+		<entity schema="MijnMenu" name="restaurantcategories" color="BED3F4" x="688" y="624" />
+		<entity schema="MijnMenu" name="images" color="3986C1" x="896" y="656" />
+	</layout>
+	<layout name="Sample Layout with Tools" id="Layout_29fa717" show_column_type="y" show_relation="columns" >
+		<entity schema="MijnMenu" name="images" color="3986C1" x="320" y="80" />
+		<entity schema="MijnMenu" name="menucategories" color="BED3F4" x="48" y="80" />
+		<entity schema="MijnMenu" name="menus" color="BED3F4" x="48" y="240" />
+		<entity schema="MijnMenu" name="products" color="BED3F4" x="48" y="240" />
+		<entity schema="MijnMenu" name="restaurantcategories" color="BED3F4" x="48" y="608" />
+		<entity schema="MijnMenu" name="restaurants" color="BED3F4" x="48" y="1008" />
+		<entity schema="MijnMenu" name="roles" color="BED3F4" x="48" y="240" />
+		<entity schema="MijnMenu" name="users" color="BED3F4" x="48" y="608" />
+		<callout x="48" y="944" pointer="NO" >
+			<comment><![CDATA[Double-click any table, column or foreign key to edit, right-click to start one of the tools below.
+Use the Relational Data Browse for simultaneously exploring data from multiple tables.
+All tools will be saved to project file and can be reopen.]]></comment>
+		</callout>
+		<group name="restaurants" color="ECF0F7" >
+			<entity schema="MijnMenu" name="restaurants" />
+			<entity schema="MijnMenu" name="menus" />
+			<entity schema="MijnMenu" name="users" />
+			<entity schema="MijnMenu" name="restaurantcategories" />
+			<entity schema="MijnMenu" name="menucategories" />
+			<entity schema="MijnMenu" name="products" />
+			<entity schema="MijnMenu" name="roles" />
+		</group>
+		<script name="Sample Query Editor" id="Editor_3d693a9" language="SQL" >
+			<string><![CDATA[// PLACE THE CARET OVER EACH LINE AND PRESS EXECUTE ( F8 )
+
+MijnMenu.restaurants.find()
+
+//OR
+
+USE MijnMenu;
+db.restaurants.find()
+
+//OR
+
+USE MijnMenu;
+db.getCollection('restaurants').find()]]></string>
+		</script>
+		<browser id="Browse_4a3e8ec" name="Sample Relational Data Browse" confirm_updates="y" >
+			<browse_table schema="MijnMenu" entity="restaurants" x="20" y="20" width="400" height="300" record_view="y" >
+				<browse_table schema="MijnMenu" entity="menus" fk="Ref" x="440" y="20" width="500" height="350" record_view="y" >
+					<browse_table schema="MijnMenu" entity="menucategories" fk="Ref" x="960" y="20" width="500" height="350" record_view="y" />
+				</browse_table>
+			</browse_table>
+		</browser>
+		<query id="Query_331645f" name="Sample Query Builder" >
+			<query_table schema="MijnMenu" name="restaurants" alias="restaurants" x="48" y="48" >
+				<column name="_id" />
+				<column name="Reviews" />
+				<column name="Name" />
+				<column name="Email" />
+				<column name="RestaurantCategoryId" />
+				<column name="Address" />
+				<column name="UserId" />
+				<column name="Images" />
+				<column name="Description" />
+				<column name="CreatedDate" />
+				<column name="ModifiedDate" />
+				<column name="__v" />
+				<query_table schema="MijnMenu" name="menus" alias="menus" x="288" y="48" fk="Ref" type="Inner Join" >
+					<column name="_id" />
+					<column name="Name" />
+					<column name="MenuCategoryId" />
+					<column name="ProductId" />
+					<column name="RestaurantId" />
+					<column name="CreatedDate" />
+					<column name="ModifiedDate" />
+					<column name="__v" />
+					<column name="Barcode" />
+					<column name="CostExcelTax" />
+					<column name="Description" />
+					<column name="DiscountEvent" />
+					<column name="PriceDelivery" />
+					<column name="ReductionAmount" />
+					<column name="RunTimeEventTime" />
+					<column name="TaxLevel" />
+					<column name="TaxLevelDelivery" />
+					<column name="TaxLevelTakeAway" />
+					<query_table schema="MijnMenu" name="menucategories" alias="menucategories" x="496" y="48" fk="Ref" type="Inner Join" >
+						<column name="_id" />
+						<column name="Name" />
+						<column name="CreatedDate" />
+						<column name="ModifiedDate" />
+						<column name="__v" />
+					</query_table>
+				</query_table>
+			</query_table>
+		</query>
+	</layout>
+</project>

@@ -1,0 +1,368 @@
+<!-- BEGIN: Left Aside -->
+<button class="m-aside-left-close  m-aside-left-close--skin-dark" id="m_aside_left_close_btn" appunwraptag="">
+    <i class="la la-close"></i>
+</button>
+<div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-dark">
+    <!-- BEGIN: Aside Menu -->
+    <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark" m-menu-vertical="1" m-menu-scrollable="0" m-menu-dropdown-timeout="500">
+        <ul class=" m-menu__nav  m-menu__nav--dropdown-submenu-arrow">
+            <ul class="m-portlet__nav">
+                <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" aria-expanded="true">
+                    <a (click)="MyRetaurant()" href="#" class="m-portlet__nav-link btn btn--sm m-btn--pill">
+                        <i class="m-menu__link-icon m-menu__link-icn flaticon-line-graph"></i> <span class="m-menu__link-text">My Restaurant</span> 
+                    </a>
+                    <div (window:mouseup)="autoClose($event)" id="myRestaurant" style="display:none;" class="my_restaurant_area m-dropdown__wrapper">
+                        <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 36.5px;"></span>
+                        <div class="m-dropdown__inner">
+                            <div class="m-dropdown__body">
+                                <div *ngIf="SelectedRestaurant!=null">
+                                    <div class="super_admin_hdr">{{SelectedRestaurant.Restaurant.Name}}</div>
+                                    <div class="super_admin_inner">
+
+                                        <div class="multi_resto_list" *ngFor="let restaurant of Restaurants">
+                                            <div class="resto_lst active" *ngIf="restaurant.Restaurant._id==SelectedRestaurant.Restaurant._id">
+                                                <div class="my_resto_dtl" (click)="SelectRestaurant(restaurant)">
+                                                    <h5 *ngIf="restaurant.Restaurant!=undefined">{{restaurant.Restaurant.Name}}</h5>
+                                                    <p *ngIf="restaurant.RestaurantCategory!=undefined"><strong>Category</strong> {{restaurant.RestaurantCategory.Name}}</p>
+                                                </div>
+                                                <span class="view_sign"><i (click)="Detail(restaurant)" class="fa fa-eye" aria-hidden="true"></i></span>
+                                            </div>
+
+                                            <div class="resto_lst" *ngIf="restaurant.Restaurant._id!=SelectedRestaurant.Restaurant._id">
+                                                <div class="my_resto_dtl" (click)="SelectRestaurant(restaurant)">
+                                                    <h5>{{restaurant.Restaurant.Name}}</h5>
+                                                    <p><strong>Category</strong> {{restaurant.RestaurantCategory.Name}}</p>
+                                                </div>
+                                                <span class="view_sign"><i (click)="Detail(restaurant)" class="fa fa-eye" aria-hidden="true"></i></span>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div *ngIf="SelectedRestaurant==null">
+                                    <div class="super_admin_hdr"></div>
+                                    <div class="super_admin_inner">
+
+                                    </div>
+                                </div>
+                                <p class="superadmin_add new add_new1"><a id="addNew" href="javascript:void(0);" (click)="OpenNext()">add new restaurant</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="AddNewRest" style="display:none;" class="my_restaurant_area m-dropdown__wrapper">
+                        <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 36.5px;"></span>
+                        <div class="m-dropdown__inner">
+                            <div class="m-dropdown__body">
+                                <div *ngIf="restaurantModel._id!=null" class="super_admin_hdr">edit - {{restaurantModel.Name}}</div>
+                                <div *ngIf="restaurantModel._id==null" class="super_admin_hdr">add new restaurant</div>
+                                <form #menuForm="ngForm">
+                                  <div class="super_admin_inner">
+
+                                    <div class="form-group m-form__group">
+                                      <label>
+                                        Restaurant name
+                                      </label>
+                                      <input name="Name" [(ngModel)]="restaurantModel.Name" class="form-control m-input" placeholder="restaurant name" type="text">
+
+                                      <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                        {{ErrorModel.Name}}
+                                      </div>
+                                    </div>
+
+                                    <div class="form-group m-form__group">
+                                      <label for="exampleTextarea">
+                                        Restaurant description
+                                      </label>
+                                      <textarea name="Description" [(ngModel)]="restaurantModel.Description" class="form-control m-input m-input--solid" placeholder="description" id="description" rows="3"></textarea>
+                                    </div>
+                                    <div class="form-group m-form__group">
+                                      <!--<label for="file-upload" class="custom-file-upload">
+        <i class="fa fa-link" aria-hidden="true"></i>
+    </label>
+    <input multiple type="file" id="file-upload" (change)="handleFileInput($event.target.files)"/>-->
+
+                                      <label for="exampleTextarea">
+                                        Image
+                                      </label>
+                                      <input multiple type="file" id="file" (change)="handleFileInput($event.target.files)" class="form-control m-input m-input--square">
+                                    </div>
+                                    <div class="form-group m-form__group">
+                                      <div class="uploaded_element" *ngFor="let image of RestaurantImages">
+                                        <img class="element_uploaded" src={{image.Path}} /><span (click)="deleteImage(image._id)" class="del_element">X</span>
+                                      </div>
+                                    </div>
+                                    <div class="form-group m-form__group">
+                                      <label for="exampleSelect1">
+                                        Select category
+                                      </label>
+
+                                      <select name="RestaurantCategory" [(ngModel)]="restaurantModel.RestaurantCategoryId" class="form-control m-input m-input--solid" id="RestaurantCategory">
+                                        <option value="0">--Select--</option>
+                                        <option [ngValue]="k._id" *ngFor="let k of RestaurantCategories">
+                                          {{k.Name}}
+                                        </option>
+                                      </select>
+                                      <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                        {{ErrorModel.RestaurantCategory}}
+                                      </div>
+                                    </div>
+                                    <div class="form-group m-form__group">
+                                        <label class="">
+                                          Dietary restrictions
+                                        </label>
+                                        <div class="price_check dietary-check-box" *ngFor="let data of dietaryFormArray">
+                                          <label class="m-checkbox">
+                                            <input type="checkbox" value="data._id" (change)="onChange(data._id, $event.target.checked)" [checked]="restaurantModel.DietaryType ? restaurantModel.DietaryType.indexOf(data._id) >= 0 :false"><span></span>
+                                          </label>{{data.DietaryName}}
+                                        </div>
+                                      </div>
+                                    <div class="form-group m-form__group">
+                                      <label>
+                                        Address
+                                      </label>
+                                      <input name="Address" [(ngModel)]="restaurantModel.Address" class="form-control m-input" placeholder="address" type="text">
+
+                                      <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                        {{ErrorModel.Address}}
+                                      </div>
+                                    </div>
+                                    <div class="form-group m-form__group">
+                                      <label>
+                                        Location(Longitude)
+                                      </label>
+                                      <input name="Longitude" [(ngModel)]="restaurantModel.Long" class="form-control m-input" placeholder="Longitude" type="text">
+
+                                      <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                        {{ErrorModel.Longitude}}
+                                      </div>
+                                    </div>
+                                    <div class="form-group m-form__group">
+                                      <label>
+                                        Location(Latitude)
+                                      </label>
+                                      <input name="Latitude" [(ngModel)]="restaurantModel.Lat" class="form-control m-input" placeholder="Latitude" type="text">
+
+                                      <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                        {{ErrorModel.Latitude}}
+                                      </div>
+                                    </div>
+                                    <div class="form-group m-form__group">
+                                      <label>
+                                        Total Seats
+                                      </label>
+                                      <input name="TotalSeats" [(ngModel)]="restaurantModel.TotalSeats" class="form-control m-input" placeholder="Total Seats" type="Number">
+
+                                      <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                        {{ErrorModel.TotalSeats}}
+                                      </div>
+                                    </div>
+                                    <!--<div class="gps">or use gps</div>-->
+                                    <div class="form-group m-form__group">
+                                      <label>
+                                        Opening Time
+                                      </label>
+                                      <input name="openingTime" [(ngModel)]="restaurantModel.OpeningTime" class="form-control m-input" placeholder="Opening Time" type="time">
+                                      <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                        {{ErrorModel.OpeningTime}}
+                                      </div>
+                                    </div>
+                                    <div class="form-group m-form__group">
+                                      <label>
+                                        Closing Time
+                                      </label>
+                                      <input name="closingTime" [(ngModel)]="restaurantModel.ClosingTime" class="form-control m-input" placeholder="Closing Time" type="time">
+
+                                      <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+                                        {{ErrorModel.ClosingTime}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                    <div class="superadmin_add new add_new1">
+                                        <p class="superadmin_add new con_firm"><a href="#" (click)="OpenPrevious()">Previous</a></p>
+
+                                        <p *ngIf="restaurantModel._id!=null" class="superadmin_add new con_firm delete_rst"><a class="delete_resto" href="#" (click)="delete(restaurantModel._id)">delete</a></p>
+
+                                        <p class="superadmin_add new con_firm float-right"><a href="#" (click)="handleFormSubmit() && onSubmit()">confirm</a></p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="ViewDetail" style="display:none;" class="my_restaurant_area m-dropdown__wrapper">
+                        <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 36.5px;"></span>
+                        <div class="m-dropdown__inner">
+                            <div class="m-dropdown__body" *ngIf="DetailData!=null">
+                                <div class="super_admin_hdr">{{DetailData.Restaurant.Name}}</div>
+                                <div class="super_admin_inner">
+                                    <div id="resto_slider" class="carousel slide" data-ride="carousel" *ngIf="RestaurantImages!=null">
+                                        <div class="carousel-inner">
+                                            <div *ngFor="let image of RestaurantImages; let i=index">
+                                                <div *ngIf="i==0" class="carousel-item active">
+                                                    <img src={{image.Path}} alt="" width="" height="">
+                                                </div>
+                                                <div *ngIf="i!=0" class="carousel-item">
+                                                    <img src={{image.Path}} alt="" width="" height="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a *ngIf="RestaurantImages.length>0" class="carousel-control-prev" href="#resto_slider" data-slide="prev">
+                                            <span class="carousel-control-prev-icon"></span>
+                                        </a>
+                                        <a *ngIf="RestaurantImages.length>0" class="carousel-control-next" href="#resto_slider" data-slide="next">
+                                            <span class="carousel-control-next-icon"></span>
+                                        </a>
+                                    </div>
+                                    <p><a class="other_edit" href="#" (click)="edit(DetailData.Restaurant._id)">edit</a></p>
+                                    <h5>{{DetailData.Restaurant.Name}}</h5>
+                                    <p>{{DetailData.Restaurant.Description}}</p>
+                                    <div class="superadmin_category">
+                                      <p><strong>Category</strong> {{DetailData.RestaurantCategory.Name}}</p>
+                                      <p><strong>Address</strong> {{DetailData.Restaurant.Address}}</p>
+                                      <p>
+                                        <strong>Opening Time</strong>
+                                        {{ DetailData.Restaurant.OpeningTime }}
+                                      </p>
+                                      <p>
+                                        <strong>Closing Time</strong>
+                                        {{ DetailData.Restaurant.ClosingTime }}
+                                      </p>
+                                    </div>
+
+                                </div>
+                                <p class="superadmin_add new add_new1 back_list">
+                                    <a href="#" (click)="BackToList()">< back to list</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <!--add restaurent area end start here********-->
+            <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
+                <a routerLink="/index" class="m-menu__link">
+                    <i class="m-menu__link-icon flaticon-line-graph"></i>
+                    <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                            <span class="m-menu__link-text">
+                                Overview
+                            </span>
+                            <!--<span class="m-menu__link-badge">
+                                <span class="m-badge m-badge--danger">
+                                    1
+                                </span>
+                            </span>-->
+                        </span>
+                    </span>
+                </a>
+            </li>
+            <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
+                <a routerLink="/menu" class="m-menu__link">
+                    <i class="m-menu__link-icon flaticon-line-graph"></i>
+                    <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                            <span class="m-menu__link-text">
+                                Menu
+                            </span>
+                            <!--<span class="m-menu__link-badge">
+                                <span class="m-badge m-badge--danger">
+                                    1
+                                </span>
+                            </span>-->
+                        </span>
+                    </span>
+                </a>
+            </li>
+            <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
+                <a routerLink="/tblManagement" class="m-menu__link">
+                    <i class="m-menu__link-icon flaticon-line-graph"></i>
+                    <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                            <span class="m-menu__link-text">
+                                Table Management
+                            </span>
+                            <!--<span class="m-menu__link-badge">
+                                <span class="m-badge m-badge--danger">
+                                    1
+                                </span>
+                            </span>-->
+                        </span>
+                    </span>
+                </a>
+            </li>
+            <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
+                <a routerLink="/restaurantCategory" class="m-menu__link">
+                    <i class="m-menu__link-icon flaticon-line-graph"></i>
+                    <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                            <span class="m-menu__link-text">
+                                Restaurant Category
+                            </span>
+                            <!--<span class="m-menu__link-badge">
+                                <span class="m-badge m-badge--danger">
+                                    1
+                                </span>
+                            </span>-->
+                        </span>
+                    </span>
+                </a>
+            </li>
+            <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
+                <a routerLink="/offer" class="m-menu__link">
+                    <i class="m-menu__link-icon flaticon-line-graph"></i>
+                    <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                            <span class="m-menu__link-text">
+                                Offers
+                            </span>
+                            <!--<span class="m-menu__link-badge">
+                                <span class="m-badge m-badge--danger">
+                                    1
+                                </span>
+                            </span>-->
+                        </span>
+                    </span>
+                </a>
+            </li>
+            <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
+                <a routerLink="/reservations" class="m-menu__link">
+                    <i class="m-menu__link-icon flaticon-line-graph"></i>
+                    <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                            <span class="m-menu__link-text">
+                                Reservations
+                            </span>
+                            <!--<span class="m-menu__link-badge">
+                                <span class="m-badge m-badge--danger">
+                                    1
+                                </span>
+                            </span>-->
+                        </span>
+                    </span>
+                </a>
+            </li>
+            <li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true">
+                <a routerLink="/liveorders" class="m-menu__link">
+                    <i class="m-menu__link-icon flaticon-line-graph"></i>
+                    <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                            <span class="m-menu__link-text">
+                                Live Orders
+                            </span>
+                            <!--<span class="m-menu__link-badge">
+                        <span class="m-badge m-badge--danger">
+                            1
+                        </span>
+                    </span>-->
+                        </span>
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- END: Aside Menu -->
+</div>
+<!-- END: Left Aside -->

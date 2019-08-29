@@ -1,0 +1,1851 @@
+
+<div class="m-subheader">
+  <div class="d-flex align-items-center">
+    <div class="mr-auto">
+      <h3 class="m-subheader__title m-subheader__title--separator">
+        Table management
+      </h3>
+      <button class="btn btn-primary m-btn m-btn--custom" type="button" data-toggle="modal" data-target="#payment_model">Start payment process</button>
+      <!--<button class="btn btn-primary m-btn m-btn--custom" type="button" (click)="getVacantTable()">Get Tables</button>
+      <h3>Vacant Table  :  {{tableCount}}</h3>-->
+    </div>
+  </div>
+</div>
+<!-- END: Subheader -->
+<!-- START: Table management -->
+<div class="table_management m-content">
+  <div class="row">
+    <div class="col-xl-5 col-lg-12 col-md-12">
+      <!--begin::Portlet-->
+      <div class="">
+        <div class="row">
+          <div class="col-lg-12">
+            <ul class="vacact_table_header">
+              <li class="vacact_table_detail"><h4><span>{{VacantCount}}/{{AllCount}}</span> tables vacant</h4></li>
+              <li class="vacact_table_edit" data-toggle="modal" data-target="#edit_table_modal">
+                <a href=""><h4><i aria-hidden="true" class="fa fa-pencil"></i> edit</h4></a>
+              </li>
+            </ul>
+
+
+            <div class="row">
+              <div class="col-lg-12 scroll_tbl">
+                <div *ngFor="let table of Tables" class="grid">
+
+                  <div *ngIf="table.TableType== 'Square' && table.TableStatus== 'Reserved'" class="reserved_table m-portlet seating_table table_two_seated">
+                    <div class="number_of_seats">{{table.Seats}}</div>
+                    <div class="table_reserved_details">
+                      <span class="table_reserved_name">{{table.Name}}-{{table.TableStatus}}</span>
+                      <span class="table_reserved_time">18:30</span>
+                    </div>
+                    <div class="not_arrived_order2"><span>Not</span> ordered</div>
+                    <div class="seats">
+                      <div class="seat_left reserved_seat"></div>
+                      <div class="seat_right reserved_seat"></div>
+                    </div>
+                  </div>
+                  <div *ngIf="table.TableType== 'Square' && table.TableStatus== 'Occupied'" class="occupied_table m-portlet seating_table table_two_seated">
+                    <div class="number_of_seats">{{table.Seats}}</div>
+                    <div class="table_reserved_details">
+                      <span class="table_reserved_name">{{table.Name}}-{{table.TableStatus}}</span>
+                      <span class="table_reserved_time"></span>
+                    </div>
+                    <div class="not_arrived_order2"><span>Order</span>Arrived</div>
+                    <div class="seats">
+                      <div class="seat_left occupied_seat"></div>
+                      <div class="seat_right occupied_seat"></div>
+                    </div>
+                  </div>
+                  <div *ngIf="table.TableType== 'Square' && table.TableStatus== 'Vacant'" class="vacant_table m-portlet seating_table table_two_seated">
+                    <div class="number_of_seats">{{table.Seats}}</div>
+                    <div class="table_reserved_details">
+                      <span class="table_reserved_name">{{table.Name}}-{{table.TableStatus}}</span>
+                      <span class="table_reserved_time"></span>
+                    </div>
+                    <div class="not_arrived_order2"><span>Order</span>Arrived</div>
+                    <div class="seats">
+                      <div class="seat_left"></div>
+                      <div class="seat_right"></div>
+                    </div>
+                  </div>
+
+
+                  <div *ngIf="table.TableType== 'Rectangle' && table.TableStatus== 'Reserved'" class="reserved_table m-portlet seating_table table_four_seated ">
+                    <div class="number_of_seats">{{table.Seats}}</div>
+                    <div class="table_reserved_details">
+                      <span class="table_reserved_name">{{table.Name}}-{{table.TableStatus}}</span>
+                      <span class="table_reserved_time"></span>
+                    </div>
+                    <div class="not_arrived_order"><span>Waiting</span>on order</div>
+                    <div *ngIf="table.Seats==2">
+                      <div class="seats">
+                        <div class="seat_left reserved_seat"></div>
+                        <div class="seat_right reserved_seat"></div>
+                      </div>
+                      <div class="seats seats_2ndrow">
+                        <!--<div class="seat_left"></div>
+                        <div class="seat_right"></div>-->
+                      </div>
+                      <div class="seats seats_3ndrow">
+                        <!--<div class="seat_left"></div>
+                        <div class="seat_right"></div>-->
+                      </div>
+                    </div>
+                    <div *ngIf="table.Seats==3">
+                      <div class="seats">
+                        <div class="seat_left reserved_seat"></div>
+                        <div class="seat_right reserved_seat"></div>
+                      </div>
+                      <div class="seats seats_2ndrow">
+                        <!--<div class="seat_left"></div>
+                        <div class="seat_right"></div>-->
+                      </div>
+                      <div class="seats seats_3ndrow">
+                        <div class="seat_left reserved_seat"></div>
+                        <!--<div class="seat_right"></div>-->
+                      </div>
+                    </div>
+                    <div *ngIf="table.Seats==4">
+                      <div class="seats">
+                        <div class="seat_left reserved_seat"></div>
+                        <div class="seat_right reserved_seat"></div>
+                      </div>
+                      <div class="seats seats_2ndrow">
+                        <!--<div class="seat_left"></div>
+                        <div class="seat_right"></div>-->
+                      </div>
+                      <div class="seats seats_3ndrow">
+                        <div class="seat_left reserved_seat"></div>
+                        <div class="seat_right reserved_seat"></div>
+                      </div>
+                    </div>
+                    <div *ngIf="table.Seats==5">
+                      <div class="seats">
+                        <div class="seat_left reserved_seat"></div>
+                        <div class="seat_right reserved_seat"></div>
+                      </div>
+                      <div class="seats seats_2ndrow">
+                        <div class="seat_left reserved_seat"></div>
+                        <!--<div class="seat_right"></div>-->
+                      </div>
+                      <div class="seats seats_3ndrow">
+                        <div class="seat_left reserved_seat"></div>
+                        <div class="seat_right reserved_seat"></div>
+                      </div>
+                    </div>
+                    <div *ngIf="table.Seats==6">
+                      <div class="seats">
+                        <div class="seat_left reserved_seat"></div>
+                        <div class="seat_right reserved_seat"></div>
+                      </div>
+                      <div class="seats seats_2ndrow">
+                        <div class="seat_left reserved_seat"></div>
+                        <div class="seat_right reserved_seat"></div>
+                      </div>
+                      <div class="seats seats_3ndrow">
+                        <div class="seat_left reserved_seat"></div>
+                        <div class="seat_right reserved_seat"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="table.TableType== 'Rectangle' && table.TableStatus== 'Occupied'" class="occupied_table m-portlet seating_table table_four_seated ">
+                    <div class="number_of_seats">{{table.Seats}}</div>
+                    <div class="table_reserved_details">
+                      <span class="table_reserved_name">{{table.Name}}-{{table.TableStatus}}</span>
+                      <span class="table_reserved_time"></span>
+                    </div>
+                    <div class="not_arrived_order"><span>Waiting</span>on order</div>
+                    <div *ngIf="table.Seats==2">
+                      <div class="seats">
+                        <div class="seat_left occupied_seat"></div>
+                        <div class="seat_right occupied_seat"></div>
+                      </div>
+                      <div class="seats seats_2ndrow">
+                        <!--<div class="seat_left"></div>
+                        <div class="seat_right"></div>-->
+                      </div>
+                      <div class="seats seats_3ndrow">
+                        <!--<div class="seat_left"></div>
+                        <div class="seat_right"></div>-->
+                      </div>
+                    </div>
+                    <div *ngIf="table.Seats==3">
+                      <div class="seats">
+                        <div class="seat_left occupied_seat"></div>
+                        <div class="seat_right occupied_seat"></div>
+                      </div>
+                      <div class="seats seats_2ndrow">
+                        <!--<div class="seat_left"></div>
+                        <div class="seat_right"></div>-->
+                      </div>
+                      <div class="seats seats_3ndrow">
+                        <div class="seat_left occupied_seat"></div>
+                        <!--<div class="seat_right"></div>-->
+                      </div>
+                    </div>
+                    <div *ngIf="table.Seats==4">
+                      <div class="seats">
+                        <div class="seat_left occupied_seat"></div>
+                        <div class="seat_right occupied_seat"></div>
+                      </div>
+                      <div class="seats seats_2ndrow">
+                        <!--<div class="seat_left"></div>
+                        <div class="seat_right"></div>-->
+                      </div>
+                      <div class="seats seats_3ndrow">
+                        <div class="seat_left occupied_seat"></div>
+                        <div class="seat_right occupied_seat"></div>
+                      </div>
+                    </div>
+                    <div *ngIf="table.Seats==5">
+                      <div class="seats">
+                        <div class="seat_left reserved_seat"></div>
+                        <div class="seat_right reserved_seat"></div>
+                      </div>
+                      <div class="seats seats_2ndrow">
+                        <div class="seat_left occupied_seat"></div>
+                        <!--<div class="seat_right"></div>-->
+                      </div>
+                      <div class="seats seats_3ndrow">
+                        <div class="seat_left occupied_seat"></div>
+                        <div class="seat_right occupied_seat"></div>
+                      </div>
+                    </div>
+                    <div *ngIf="table.Seats==6">
+                      <div class="seats">
+                        <div class="seat_left occupied_seat"></div>
+                        <div class="seat_right occupied_seat"></div>
+                      </div>
+                      <div class="seats seats_2ndrow">
+                        <div class="seat_left occupied_seat"></div>
+                        <div class="seat_right occupied_seat"></div>
+                      </div>
+                      <div class="seats seats_3ndrow">
+                        <div class="seat_left occupied_seat"></div>
+                        <div class="seat_right occupied_seat"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="table.TableType== 'Rectangle' && table.TableStatus== 'Vacant'" class="vacant_table m-portlet seating_table table_four_seated">
+                    <div class="number_of_seats">{{table.Seats}}</div>
+                    <div class="table_reserved_details">
+                      <span class="table_reserved_name">{{table.Name}}-{{table.TableStatus}}</span>
+                      <span class="table_reserved_time"></span>
+                    </div>
+                    <div class="not_arrived_order"><span>Not</span>ordered</div>
+                    <div *ngIf="table.Seats==2">
+                      <div class="seats">
+                        <div class="seat_left"></div>
+                        <div class="seat_right"></div>
+                      </div>
+                      <div class="seats seats_2ndrow">
+                        <!--<div class="seat_left"></div>
+                        <div class="seat_right"></div>-->
+                      </div>
+                      <div class="seats seats_3ndrow">
+                        <!--<div class="seat_left"></div>
+                        <div class="seat_right"></div>-->
+                      </div>
+                    </div>
+                    <div *ngIf="table.Seats==3">
+                      <div class="seats">
+                        <div class="seat_left"></div>
+                        <div class="seat_right"></div>
+                      </div>
+                      <div class="seats seats_2ndrow">
+                        <!--<div class="seat_left"></div>
+                        <div class="seat_right"></div>-->
+                      </div>
+                      <div class="seats seats_3ndrow">
+                        <div class="seat_left"></div>
+                        <!--<div class="seat_right"></div>-->
+                      </div>
+                    </div>
+                    <div *ngIf="table.Seats==4">
+                      <div class="seats">
+                        <div class="seat_left"></div>
+                        <div class="seat_right"></div>
+                      </div>
+                      <div class="seats seats_2ndrow">
+                        <!--<div class="seat_left"></div>
+                        <div class="seat_right"></div>-->
+                      </div>
+                      <div class="seats seats_3ndrow">
+                        <div class="seat_left"></div>
+                        <div class="seat_right"></div>
+                      </div>
+                    </div>
+                    <div *ngIf="table.Seats==5">
+                      <div class="seats">
+                        <div class="seat_left"></div>
+                        <div class="seat_right"></div>
+                      </div>
+                      <div class="seats seats_2ndrow">
+                        <div class="seat_left"></div>
+                        <!--<div class="seat_right"></div>-->
+                      </div>
+                      <div class="seats seats_3ndrow">
+                        <div class="seat_left"></div>
+                        <div class="seat_right"></div>
+                      </div>
+                    </div>
+                    <div *ngIf="table.Seats==6">
+                      <div class="seats">
+                        <div class="seat_left"></div>
+                        <div class="seat_right"></div>
+                      </div>
+                      <div class="seats seats_2ndrow">
+                        <div class="seat_left"></div>
+                        <div class="seat_right"></div>
+                      </div>
+                      <div class="seats seats_3ndrow">
+                        <div class="seat_left"></div>
+                        <div class="seat_right"></div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <div *ngIf="table.TableType== 'Round' && table.TableStatus== 'Vacant'" class="m-portlets m-portlet--mobile">
+                    <div class="m-portlet-circles">
+                      <div class="m-portlet__head">
+                        <div class="reserved_table seating_table table_two_seated">
+                          <div class="number_of_seats">{{table.Seats}}</div>
+                          <div class="table_reserved_details">
+                            <span class="table_reserved_name">{{table.Name}}-{{table.TableStatus}}</span>
+                            <span class="table_reserved_time"></span>
+                          </div>
+                          <div class="not_arrived_order"><span>Not</span>ordered</div>
+                          <div *ngIf="table.Seats==2">
+                            <div class="seats top-seats">
+                              <div class="seat_left"></div>
+                              <div class="seat_right"></div>
+                            </div>
+                            <div class="seats">
+                              <!--<div class="seat_left"></div>
+                              <div class="seat_right"></div>-->
+                            </div>
+                            <div class="seats bottom-seats">
+                              <!--<div class="seat_left"></div>
+                              <div class="seat_right"></div>-->
+                            </div>
+                          </div>
+                          <div *ngIf="table.Seats==3">
+                            <div class="seats top-seats">
+                              <div class="seat_left"></div>
+                              <div class="seat_right"></div>
+                            </div>
+                            <div class="seats">
+                              <div class="seat_left"></div>
+                              <!--<div class="seat_right"></div>-->
+                            </div>
+                            <div class="seats bottom-seats">
+                              <!--<div class="seat_left"></div>
+                              <div class="seat_right"></div>-->
+                            </div>
+                          </div>
+                          <div *ngIf="table.Seats==4">
+                            <div class="seats top-seats">
+                              <div class="seat_left"></div>
+                              <div class="seat_right"></div>
+                            </div>
+                            <div class="seats">
+                              <div class="seat_left"></div>
+                              <div class="seat_right"></div>
+                            </div>
+                            <div class="seats bottom-seats">
+                              <!--<div class="seat_left"></div>
+                              <div class="seat_right"></div>-->
+                            </div>
+                          </div>
+                          <div *ngIf="table.Seats==5">
+                            <div class="seats top-seats">
+                              <div class="seat_left"></div>
+                              <div class="seat_right"></div>
+                            </div>
+                            <div class="seats">
+                              <div class="seat_left"></div>
+                              <div class="seat_right"></div>
+                            </div>
+                            <div class="seats bottom-seats">
+                              <div class="seat_left"></div>
+                              <!--<div class="seat_right"></div>-->
+                            </div>
+                          </div>
+                          <div *ngIf="table.Seats==6">
+                            <div class="seats top-seats">
+                              <div class="seat_left"></div>
+                              <div class="seat_right"></div>
+                            </div>
+                            <div class="seats">
+                              <div class="seat_left"></div>
+                              <div class="seat_right"></div>
+                            </div>
+                            <div class="seats bottom-seats">
+                              <div class="seat_left"></div>
+                              <div class="seat_right"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="table.TableType== 'Round' && table.TableStatus== 'Occupied'" class="m-portlets m-portlet--mobile">
+                    <div class="m-portlet-circles">
+                      <div class="m-portlet__head">
+                        <div class="reserved_table seating_table table_two_seated">
+                          <div class="number_of_seats">{{table.Seats}}</div>
+                          <div class="table_reserved_details">
+                            <span class="table_reserved_name">{{table.Name}}-{{table.TableStatus}}</span>
+                            <span class="table_reserved_time"></span>
+                          </div>
+                          <div class="not_arrived_order"><span>Waiting</span>on order</div>
+                          <div *ngIf="table.Seats==2">
+                            <div class="seats top-seats">
+                              <div class="seat_left occupied_seat"></div>
+                              <div class="seat_right occupied_seat"></div>
+                            </div>
+                            <div class="seats">
+                              <!--<div class="seat_left"></div>
+                              <div class="seat_right"></div>-->
+                            </div>
+                            <div class="seats bottom-seats">
+                              <!--<div class="seat_left"></div>
+                              <div class="seat_right"></div>-->
+                            </div>
+                          </div>
+                          <div *ngIf="table.Seats==3">
+                            <div class="seats top-seats">
+                              <div class="seat_left occupied_seat"></div>
+                              <div class="seat_right occupied_seat"></div>
+                            </div>
+                            <div class="seats">
+                              <div class="seat_left occupied_seat"></div>
+                              <!--<div class="seat_right"></div>-->
+                            </div>
+                            <div class="seats bottom-seats">
+                              <!--<div class="seat_left"></div>
+                              <div class="seat_right"></div>-->
+                            </div>
+                          </div>
+                          <div *ngIf="table.Seats==4">
+                            <div class="seats top-seats">
+                              <div class="seat_left occupied_seat"></div>
+                              <div class="seat_right occupied_seat"></div>
+                            </div>
+                            <div class="seats">
+                              <div class="seat_left occupied_seat"></div>
+                              <div class="seat_right occupied_seat"></div>
+                            </div>
+                            <div class="seats bottom-seats">
+                              <!--<div class="seat_left"></div>
+                              <div class="seat_right"></div>-->
+                            </div>
+                          </div>
+                          <div *ngIf="table.Seats==5">
+                            <div class="seats top-seats">
+                              <div class="seat_left occupied_seat"></div>
+                              <div class="seat_right occupied_seat"></div>
+                            </div>
+                            <div class="seats">
+                              <div class="seat_left occupied_seat"></div>
+                              <div class="seat_right occupied_seat"></div>
+                            </div>
+                            <div class="seats bottom-seats">
+                              <div class="seat_left occupied_seat"></div>
+                              <!--<div class="seat_right"></div>-->
+                            </div>
+                          </div>
+                          <div *ngIf="table.Seats==6">
+                            <div class="seats top-seats">
+                              <div class="seat_left occupied_seat"></div>
+                              <div class="seat_right occupied_seat"></div>
+                            </div>
+                            <div class="seats">
+                              <div class="seat_left occupied_seat"></div>
+                              <div class="seat_right occupied_seat"></div>
+                            </div>
+                            <div class="seats bottom-seats">
+                              <div class="seat_left occupied_seat"></div>
+                              <div class="seat_right occupied_seat"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="table.TableType== 'Round' && table.TableStatus== 'Reserved'" class="m-portlets m-portlet--mobile">
+                    <div class="m-portlet-circles">
+                      <div class="m-portlet__head">
+                        <div class="reserved_table seating_table table_two_seated">
+                          <div class="number_of_seats">{{table.Seats}}</div>
+                          <div class="table_reserved_details">
+                            <span class="table_reserved_name">{{table.Name}}-{{table.TableStatus}}</span>
+                            <span class="table_reserved_time"></span>
+                          </div>
+                          <div class="not_arrived_order"><span>Waiting</span>on order</div>
+                          <div *ngIf="table.Seats==2">
+                            <div class="seats top-seats">
+                              <div class="seat_left reserved_seat"></div>
+                              <div class="seat_right reserved_seat"></div>
+                            </div>
+                            <div class="seats">
+                              <!--<div class="seat_left"></div>
+                              <div class="seat_right"></div>-->
+                            </div>
+                            <div class="seats bottom-seats">
+                              <!--<div class="seat_left"></div>
+                              <div class="seat_right"></div>-->
+                            </div>
+                          </div>
+                          <div *ngIf="table.Seats==3">
+                            <div class="seats top-seats">
+                              <div class="seat_left reserved_seat"></div>
+                              <div class="seat_right reserved_seat"></div>
+                            </div>
+                            <div class="seats">
+                              <div class="seat_left reserved_seat"></div>
+                              <!--<div class="seat_right"></div>-->
+                            </div>
+                            <div class="seats bottom-seats">
+                              <!--<div class="seat_left"></div>
+                              <div class="seat_right"></div>-->
+                            </div>
+                          </div>
+                          <div *ngIf="table.Seats==4">
+                            <div class="seats top-seats">
+                              <div class="seat_left reserved_seat"></div>
+                              <div class="seat_right reserved_seat"></div>
+                            </div>
+                            <div class="seats">
+                              <div class="seat_left reserved_seat"></div>
+                              <div class="seat_right reserved_seat"></div>
+                            </div>
+                            <div class="seats bottom-seats">
+                              <!--<div class="seat_left"></div>
+                              <div class="seat_right"></div>-->
+                            </div>
+                          </div>
+                          <div *ngIf="table.Seats==5">
+                            <div class="seats top-seats">
+                              <div class="seat_left reserved_seat"></div>
+                              <div class="seat_right reserved_seat"></div>
+                            </div>
+                            <div class="seats">
+                              <div class="seat_left reserved_seat"></div>
+                              <div class="seat_right reserved_seat"></div>
+                            </div>
+                            <div class="seats bottom-seats">
+                              <div class="seat_left reserved_seat"></div>
+                              <!--<div class="seat_right"></div>-->
+                            </div>
+                          </div>
+                          <div *ngIf="table.Seats==6">
+                            <div class="seats top-seats">
+                              <div class="seat_left reserved_seat"></div>
+                              <div class="seat_right reserved_seat"></div>
+                            </div>
+                            <div class="seats">
+                              <div class="seat_left reserved_seat"></div>
+                              <div class="seat_right reserved_seat"></div>
+                            </div>
+                            <div class="seats bottom-seats">
+                              <div class="seat_left reserved_seat"></div>
+                              <div class="seat_right reserved_seat"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <!--end::Portlet-->
+    </div>
+
+
+    <div class="col-xl-7 col-lg-12 col-md-12">
+      <div class="row">
+        <!--begin::Portlet-->
+        <div class="col-lg-5">
+          <div class="reservation_detail m-portlet">
+            <span class="sb_heading">Reservations</span>
+            <div class="m-section__content">
+              <table class="table">
+                <tbody *ngIf="ReservedTables!=undefined && ReservedTables!=null">
+                  <tr *ngFor="let reservedTbl of ReservedTables">
+                    <td scope="row"><span class="time_duration">19:30</span></td>
+                    <td>
+                      <span class="apply_name">{{reservedTbl.FirstName}} {{reservedTbl.LastName}}</span>
+                      <span class="apply_stat">none</span>
+                      <span class="apply_stat"><b>{{getTableName(reservedTbl.TableId)}}</b></span>
+                    </td>
+                    <td>
+                      <div class="m-dropdown m-dropdown--inline m-dropdown--small m-dropdown--arrow m-dropdown--align-right" m-dropdown-toggle="hover">
+                        <a href="#" class="m-dropdown__toggle btn btn-success dropdown-toggle">Assign table	</a>
+                        <div class="m-dropdown__wrapper">
+                          <span class="m-dropdown__arrow m-dropdown__arrow--right"></span>
+                          <div class="m-dropdown__inner">
+                            <div class="m-dropdown__body">
+                              <div class="m-dropdown__content">
+                                <ul class="m-nav">
+                                  <li *ngFor="let k of VacantTables" class="m-nav__item">
+                                    <a href="" (click)="ReAssign(k._id,reservedTbl)" class="m-nav__link">	<span class="m-nav__link-text">{{k.Name}}</span></a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!--begin::Portlet-->
+        <div class="col-lg-7">
+          <div class="visitors">
+            <div class="m-widget24">
+              <div class="m-widget24__item">
+                <h4 class="m-widget24__title">
+                  <span class="widget_til">Visitor per day</span>
+                  <span class="m-widget24__stats m--font-brand">
+                    250
+                  </span>
+                </h4>
+
+                <div class="m--space-10"></div>
+                <div class="progress m-progress--sm">
+                  <div class="progress-bar m--bg-brand" role="progressbar" style="width: 78%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="m-widget24__change">
+                  Change
+                </span>
+                <span class="m-widget24__number">
+                  78%
+                </span>
+              </div>
+            </div>
+
+            <div class="m-widget24">
+              <div class="m-widget24__item">
+                <h4 class="m-widget24__title">
+                  <span class="widget_til">Average group size</span>
+                  <span class="m-widget24__stats m--font-brand">
+                    4
+                  </span>
+                </h4>
+
+                <div class="m--space-10"></div>
+                <div class="progress m-progress--sm">
+                  <div class="progress-bar m--bg-brand" role="progressbar" style="width: 78%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="m-widget24__change">
+                  Change
+                </span>
+                <span class="m-widget24__number">
+                  50%
+                </span>
+              </div>
+            </div>
+            <div class="clearfix m-middle-spacing"></div>
+            <div class="m-widget24">
+              <div class="m-widget24__item">
+                <h4 class="m-widget24__title">
+                  <span class="widget_til">Number of reservation</span>
+                  <span class="m-widget24__stats m--font-brand m--font-danger">
+                    25
+                  </span>
+                </h4>
+                <div class="m--space-10"></div>
+                <div class="progress m-progress--sm">
+                  <div class="progress-bar m--bg-danger" role="progressbar" style="width: 78%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="m-widget24__change">
+                  Change
+                </span>
+                <span class="m-widget24__number">
+                  78%
+                </span>
+              </div>
+            </div>
+
+            <div class="m-widget24">
+              <div class="m-widget24__item">
+                <h4 class="m-widget24__title">
+                  <span class="widget_til">Ad Hoc Customer</span>
+                  <span class="m-widget24__stats m--font-brand m--font-accent">
+                    125
+                  </span>
+                </h4>
+
+                <div class="m--space-10"></div>
+                <div class="progress m-progress--sm">
+                  <div class="progress-bar m--bg-accent" role="progressbar" style="width: 78%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="m-widget24__change">
+                  Change
+                </span>
+                <span class="m-widget24__number">
+                  50%
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end::Portlet-->
+
+
+      </div>
+      <!--end::Portlet-->
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="m-portlet resto_portlet">
+            <div class="m-section">
+              <div class="m-section__sub">
+                <h5>Portlet Title</h5>
+                <p>Restaurant in your sector</p>
+              </div>
+              <div class="m-section__content">
+                <table class="table m-table m-table--head-bg-brand table-striped">
+                  <thead class="thead-inverse">
+                    <tr>
+                      <th width="20%">Table nr</th>
+                      <th width="20%">Dish Name</th>
+                      <th width="10%">Dish#</th>
+                      <th class="text-center">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let k of RestaurantOrders">
+                      <td scope="row">{{k.Order.TableName}}</td>
+                      <td><strong>{{k.Order.ProductName}}</strong></td>
+                      <td>{{k.Order.ProductQty}}</td>
+                      <td>
+
+                        <table class="status_order_table" *ngIf="k.OrderStatus== 'Received'">
+                          <tr>
+                            <td>
+                              <div class="m-dropdown m-dropdown--inline m-dropdown--small m-dropdown--arrow m-dropdown--align-right" m-dropdown-toggle="hover">
+                                <a href="#" class="m-dropdown__toggle btn btn-danger dropdown-toggle">order received</a>
+                                <div class="m-dropdown__wrapper">
+                                  <span class="m-dropdown__arrow m-dropdown__arrow--right"></span>
+                                  <div class="m-dropdown__inner">
+                                    <div class="m-dropdown__body">
+                                      <div class="m-dropdown__content">
+                                        <ul class="m-nav">
+                                          <li class="m-nav__item">
+                                            <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Received')">Received</span></a>
+                                          </li>
+                                          <li class="m-nav__item">
+                                            <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Prepared')">Prepared</span></a>
+                                          </li>
+                                          <li class="m-nav__item">
+                                            <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Serving')">Serving</span></a>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        </table>
+
+                        <table class="status_order_table" *ngIf="k.OrderStatus== 'Prepared'">
+                          <tr>
+
+                            <td></td>
+
+                            <td>
+                              <div class="m-dropdown m-dropdown--inline m-dropdown--small m-dropdown--arrow m-dropdown--align-right" m-dropdown-toggle="hover">
+                                <a href="#" class="m-dropdown__toggle btn btn-warning dropdown-toggle">being prepared</a>
+                                <div class="m-dropdown__wrapper">
+                                  <span class="m-dropdown__arrow m-dropdown__arrow--right"></span>
+                                  <div class="m-dropdown__inner">
+                                    <div class="m-dropdown__body">
+                                      <div class="m-dropdown__content">
+                                        <ul class="m-nav">
+                                          <li class="m-nav__item">
+                                            <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Received')">Received</span></a>
+                                          </li>
+                                          <li class="m-nav__item">
+                                            <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Prepared')">Prepared</span></a>
+                                          </li>
+                                          <li class="m-nav__item">
+                                            <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Serving')">Serving</span></a>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+
+                            <td></td>
+                          </tr>
+                        </table>
+
+                        <table class="status_order_table" *ngIf="k.OrderStatus== 'Serving'">
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                              <div class="m-dropdown m-dropdown--inline m-dropdown--small m-dropdown--arrow m-dropdown--align-right" m-dropdown-toggle="hover">
+                                <a href="#" class="m-dropdown__toggle btn btn-success dropdown-toggle">out for serving</a>
+                                <div class="m-dropdown__wrapper">
+                                  <span class="m-dropdown__arrow m-dropdown__arrow--right"></span>
+                                  <div class="m-dropdown__inner">
+                                    <div class="m-dropdown__body">
+                                      <div class="m-dropdown__content">
+                                        <ul class="m-nav">
+                                          <li class="m-nav__item">
+                                            <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Received')">Received</span></a>
+                                          </li>
+                                          <li class="m-nav__item">
+                                            <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Prepared')">Prepared</span></a>
+                                          </li>
+                                          <li class="m-nav__item">
+                                            <a href="" class="m-nav__link">	<span class="m-nav__link-text" (click)="updateReservationStatus(k,'Serving')">Serving</span></a>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- END: Table management -->
+<!--begin::Portlet-->
+<div class="m-portlet">
+  <!--begin::Section-->
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Add/Update Table</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <form #categoryForm="ngForm" (ngSubmit)="handleFormSubmit() && onSubmit()" class="m-form m-form--fit m-form--label-align-right">
+      <ng-template #alertSignin></ng-template>
+      <div class="modal-body">
+        <div class="m-portlet__body">
+          <div class="form-group m-form__group">
+            <label for="exampleInputEmail1">
+              Name
+            </label>
+            <input name="Title" #name="ngModel" [(ngModel)]="tableModel.Name" type="text" class="form-control m-input m-input--square" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Title">
+            <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+              {{ErrorModel.Name}}
+            </div>
+          </div>
+          <div class="form-group m-form__group">
+            <label for="exampleInputEmail1">
+              Restaurant
+            </label>
+            <select name="Restaurant" [(ngModel)]="tableModel.RestaurantId" class="form-control m-input m-input--square" id="Restaurant">
+              <option value="0">--Select--</option>
+              <option [ngValue]="k._id" *ngFor="let k of Restaurants">
+                {{k.Name}}
+              </option>
+            </select>
+            <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+              {{ErrorModel.Restaurant}}
+            </div>
+          </div>
+          <div class="form-group m-form__group">
+            <label for="exampleInputEmail1">
+              Table Type
+            </label>
+            <select (change)="changeTableType($event)" name="TableType" [(ngModel)]="tableModel.TableType" class="form-control m-input m-input--square" id="TableType">
+              <option value="0">--Select--</option>
+              <option [ngValue]="k.Type" *ngFor="let k of tableTypes">
+                {{k.Type}}
+              </option>
+            </select>
+            <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+              {{ErrorModel.TableType}}
+            </div>
+          </div>
+          <div class="form-group m-form__group">
+            <label for="exampleInputEmail1">
+              Seats/Persons
+            </label>
+            <select name="Seats" [(ngModel)]="tableModel.Seats" class="form-control m-input m-input--square" id="Seats">
+              <option [ngValue]="k.value" *ngFor="let k of seatsOption">
+                {{k.label}}
+              </option>
+              <!--<option value="2">2 - Person</option>
+              <option value="3">3 - Person</option>
+              <option value="4">4 - Person</option>
+              <option value="5">5 - Person</option>
+              <option value="6">6 - Person</option>-->
+            </select>
+            <div *ngIf="ErrorModel!=null" class="form-control-feedback">
+              {{ErrorModel.Seats}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="m-portlet__foot m-portlet__foot--fit">
+          <div class="m-form__actions">
+            <!--<button id="m_submit" type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                Submit
+            </button>-->
+            <button id="m_login_signin_submitss" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+              Submit
+            </button>
+          </div>
+        </div>
+        <button id="m_login" type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+      </div>
+    </form>
+  </ng-template>
+  <!--end::Section-->
+</div>
+<!--end::Portlet-->
+<!--Edit Table Model-->
+<div class="modal fade edit_table_modal" id="edit_table_modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">
+          Table Layout
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            &times;
+          </span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <div>
+              <h3 class="text-left edit_table_sb_hd">Current Layout</h3>
+              <div (click)="modalOpen(content,'')" class="add_badge text-right"><span class="m-badge m-badge--brand">+</span> <h4>add</h4></div>
+            </div>
+
+            <div class="row">
+           
+              <div *ngFor="let table of Tables" id="drag-1" class="draggable">
+                <div *ngIf="table.TableType== 'Square' && table.TableStatus== 'Reserved'" class="m-portlet m-portlet--mobile">
+                  <div class="m-portlet__head">
+                    <div class="reserved_table seating_table table_two_seated">
+                      <button class="del_table" (click)="delete(table._id)">delete</button>
+                      <div class="number_of_seats">Persons: {{table.Seats}}</div>
+                      <div class="seats">
+                        <div class="seat_left reserved_seat"></div>
+                        <div class="seat_right reserved_seat"></div>
+                      </div>
+                      <img src="./assets/app/media/img/icons/drag_btn.jpg" class="drag_btn">
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="table.TableType== 'Square' && table.TableStatus== 'Occupied'" class="m-portlet m-portlet--mobile">
+                  <div class="m-portlet__head">
+                    <div class="occupied_table seating_table table_two_seated">
+                      <button class="del_table" (click)="delete(table._id)">delete</button>
+                      <div class="number_of_seats">Persons: {{table.Seats}}</div>
+                      <div class="table_reserved_details"></div>
+                      <div class="seats">
+                        <div class="seat_left occupied_seat"></div>
+                        <div class="seat_right occupied_seat"></div>
+                      </div>
+                      <img src="./assets/app/media/img/icons/drag_btn.jpg" class="drag_btn">
+                    </div>
+
+                  </div>
+                </div>
+                <div *ngIf="table.TableType== 'Square' && table.TableStatus== 'Vacant'" class="m-portlet m-portlet--mobile" >
+                  <div class="m-portlet__head">
+                    <div class="occupied_table seating_table table_two_seated">
+                      <button class="del_table" (click)="delete(table._id)">delete</button>
+                      <div class="number_of_seats">Persons: {{table.Seats}}</div>
+                      <div class="table_reserved_details"></div>
+                      <div class="seats">
+                        <div class="seat_left"></div>
+                        <div class="seat_right"></div>
+                      </div>
+                      <img src="./assets/app/media/img/icons/drag_btn.jpg" class="drag_btn">
+                    </div>
+
+                  </div>
+                </div>
+
+
+                <div *ngIf="table.TableType== 'Rectangle' && table.TableStatus== 'Reserved'" class="m-portlet m-portlet--mobile">
+                  <div class="m-portlet__head">
+                    <div class="occupied_table seating_table table_four_seated ">
+                      <button class="del_table" (click)="delete(table._id)">delete</button>
+                      <div class="number_of_seats">Persons: {{table.Seats}}</div>
+                      <div *ngIf="table.Seats==2">
+                        <div class="seats">
+                          <div class="seat_left reserved_seat"></div>
+                          <div class="seat_right reserved_seat"></div>
+                        </div>
+                        <div class="seats seats_2ndrow">
+                          <div class="seat_left"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                        <div class="seats seats_3ndrow">
+                          <div class="seat_left"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                      </div>
+                      <div *ngIf="table.Seats==3">
+                        <div class="seats">
+                          <div class="seat_left reserved_seat"></div>
+                          <div class="seat_right reserved_seat"></div>
+                        </div>
+                        <div class="seats seats_2ndrow">
+                        </div>
+                        <div class="seats seats_3ndrow">
+                          <div class="seat_left reserved_seat"></div>
+                        </div>
+                      </div>
+                      <div *ngIf="table.Seats==4">
+                        <div class="seats">
+                          <div class="seat_left reserved_seat"></div>
+                          <div class="seat_right reserved_seat"></div>
+                        </div>
+                        <div class="seats seats_2ndrow">
+                        </div>
+                        <div class="seats seats_3ndrow">
+                          <div class="seat_left reserved_seat"></div>
+                          <div class="seat_right reserved_seat"></div>
+                        </div>
+                      </div>
+                      <div *ngIf="table.Seats==5">
+                        <div class="seats">
+                          <div class="seat_left reserved_seat"></div>
+                          <div class="seat_right reserved_seat"></div>
+                        </div>
+                        <div class="seats seats_2ndrow">
+                          <div class="seat_left reserved_seat"></div>
+                        </div>
+                        <div class="seats seats_3ndrow">
+                          <div class="seat_left reserved_seat"></div>
+                          <div class="seat_right reserved_seat"></div>
+                        </div>
+                      </div>
+                      <div *ngIf="table.Seats==6">
+                        <div class="seats">
+                          <div class="seat_left reserved_seat"></div>
+                          <div class="seat_right reserved_seat"></div>
+                        </div>
+                        <div class="seats seats_2ndrow">
+                          <div class="seat_left reserved_seat"></div>
+                          <div class="seat_right reserved_seat"></div>
+                        </div>
+                        <div class="seats seats_3ndrow">
+                          <div class="seat_left reserved_seat"></div>
+                          <div class="seat_right reserved_seat"></div>
+                        </div>
+                      </div>
+                      <img src="./assets/app/media/img/icons/drag_btn.jpg" class="drag_btn">
+                    </div>
+
+                  </div>
+                </div>
+                <div *ngIf="table.TableType== 'Rectangle' && table.TableStatus== 'Occupied'" class="m-portlet m-portlet--mobile">
+                  <div class="m-portlet__head">
+                    <div class="occupied_table seating_table table_four_seated ">
+                      <button class="del_table" (click)="delete(table._id)">delete</button>
+                      <div class="number_of_seats">Persons: {{table.Seats}}</div>
+                      <div *ngIf="table.Seats==2">
+                        <div class="seats">
+                          <div class="seat_left occupied_seat"></div>
+                          <div class="seat_right occupied_seat"></div>
+                        </div>
+                        <div class="seats seats_2ndrow">
+                          <div class="seat_left"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                        <div class="seats seats_3ndrow">
+                          <div class="seat_left"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                      </div>
+                      <div *ngIf="table.Seats==3">
+                        <div class="seats">
+                          <div class="seat_left occupied_seat"></div>
+                          <div class="seat_right occupied_seat"></div>
+                        </div>
+                        <div class="seats seats_2ndrow">
+                          <div class="seat_left"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                        <div class="seats seats_3ndrow">
+                          <div class="seat_left occupied_seat"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                      </div>
+                      <div *ngIf="table.Seats==4">
+                        <div class="seats">
+                          <div class="seat_left occupied_seat"></div>
+                          <div class="seat_right occupied_seat"></div>
+                        </div>
+                        <div class="seats seats_2ndrow">
+                          <div class="seat_left"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                        <div class="seats seats_3ndrow">
+                          <div class="seat_left occupied_seat"></div>
+                          <div class="seat_right occupied_seat"></div>
+                        </div>
+                      </div>
+                      <div *ngIf="table.Seats==5">
+                        <div class="seats">
+                          <div class="seat_left occupied_seat"></div>
+                          <div class="seat_right occupied_seat"></div>
+                        </div>
+                        <div class="seats seats_2ndrow">
+                          <div class="seat_left occupied_seat"></div>
+                          <div class="seat_right "></div>
+                        </div>
+                        <div class="seats seats_3ndrow">
+                          <div class="seat_left occupied_seat"></div>
+                          <div class="seat_right occupied_seat"></div>
+                        </div>
+                      </div>
+                      <div *ngIf="table.Seats==6">
+                        <div class="seats">
+                          <div class="seat_left occupied_seat"></div>
+                          <div class="seat_right occupied_seat"></div>
+                        </div>
+                        <div class="seats seats_2ndrow">
+                          <div class="seat_left occupied_seat"></div>
+                          <div class="seat_right occupied_seat"></div>
+                        </div>
+                        <div class="seats seats_3ndrow">
+                          <div class="seat_left occupied_seat"></div>
+                          <div class="seat_right occupied_seat"></div>
+                        </div>
+                      </div>
+                      <img src="./assets/app/media/img/icons/drag_btn.jpg" class="drag_btn">
+                    </div>
+
+                  </div>
+                </div>
+                <div *ngIf="table.TableType== 'Rectangle' && table.TableStatus== 'Vacant'" class="m-portlet m-portlet--mobile">
+                  <div class="m-portlet__head">
+                    <div class="vacant_table seating_table table_four_seated">
+                      <button class="del_table" (click)="delete(table._id)">delete</button>
+                      <div class="number_of_seats">Persons: {{table.Seats}}</div>
+                      <div *ngIf="table.Seats==2">
+                        <div class="seats">
+                          <div class="seat_left"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                        <div class="seats seats_2ndrow">
+                          <!--<div class="seat_left"></div>
+              <div class="seat_right"></div>-->
+                        </div>
+                        <div class="seats seats_3ndrow">
+                          <!--<div class="seat_left"></div>
+              <div class="seat_right"></div>-->
+                        </div>
+                      </div>
+                      <div *ngIf="table.Seats==3">
+                        <div class="seats">
+                          <div class="seat_left"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                        <div class="seats seats_2ndrow">
+                          <!--<div class="seat_left"></div>
+              <div class="seat_right"></div>-->
+                        </div>
+                        <div class="seats seats_3ndrow">
+                          <div class="seat_left"></div>
+                          <!--<div class="seat_right"></div>-->
+                        </div>
+                      </div>
+                      <div *ngIf="table.Seats==4">
+                        <div class="seats">
+                          <div class="seat_left"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                        <div class="seats seats_2ndrow">
+                          <!--<div class="seat_left"></div>
+              <div class="seat_right"></div>-->
+                        </div>
+                        <div class="seats seats_3ndrow">
+                          <div class="seat_left"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                      </div>
+                      <div *ngIf="table.Seats==5">
+                        <div class="seats">
+                          <div class="seat_left"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                        <div class="seats seats_2ndrow">
+                          <div class="seat_left"></div>
+                          <!--<div class="seat_right"></div>-->
+                        </div>
+                        <div class="seats seats_3ndrow">
+                          <div class="seat_left"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                      </div>
+                      <div *ngIf="table.Seats==6">
+                        <div class="seats">
+                          <div class="seat_left"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                        <div class="seats seats_2ndrow">
+                          <div class="seat_left"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                        <div class="seats seats_3ndrow">
+                          <div class="seat_left"></div>
+                          <div class="seat_right"></div>
+                        </div>
+                      </div>
+                      <img src="./assets/app/media/img/icons/drag_btn.jpg" class="drag_btn">
+                    </div>
+                  </div>
+                </div>
+
+
+                <div *ngIf="table.TableType== 'Round' && table.TableStatus== 'Vacant'" class="m-portlet m-portlet--mobile">
+                  <div class="m-portlet-circle">
+                    <div class="m-portlet__head">
+                      <div class="reserved_table seating_table table_two_seated  ">
+                        <button class="del_table" (click)="delete(table._id)">delete</button>
+                        <div class="number_of_seats">Persons: {{table.Seats}}</div>
+                        <div *ngIf="table.Seats==2">
+                          <div class="seats top-seats">
+                            <div class="seat_left"></div>
+                            <div class="seat_right"></div>
+                          </div>
+                          <div class="seats">
+                            <!--<div class="seat_left"></div>
+                <div class="seat_right"></div>-->
+                          </div>
+                          <div class="seats bottom-seats">
+                            <!--<div class="seat_left"></div>
+                <div class="seat_right"></div>-->
+                          </div>
+                        </div>
+                        <div *ngIf="table.Seats==3">
+                          <div class="seats top-seats">
+                            <div class="seat_left"></div>
+                            <div class="seat_right"></div>
+                          </div>
+                          <div class="seats">
+                            <div class="seat_left"></div>
+                            <!--<div class="seat_right"></div>-->
+                          </div>
+                          <div class="seats bottom-seats">
+                            <!--<div class="seat_left"></div>
+                <div class="seat_right"></div>-->
+                          </div>
+                        </div>
+                        <div *ngIf="table.Seats==4">
+                          <div class="seats top-seats">
+                            <div class="seat_left"></div>
+                            <div class="seat_right"></div>
+                          </div>
+                          <div class="seats">
+                            <div class="seat_left"></div>
+                            <div class="seat_right"></div>
+                          </div>
+                          <div class="seats bottom-seats">
+                            <!--<div class="seat_left"></div>
+                <div class="seat_right"></div>-->
+                          </div>
+                        </div>
+                        <div *ngIf="table.Seats==5">
+                          <div class="seats top-seats">
+                            <div class="seat_left"></div>
+                            <div class="seat_right"></div>
+                          </div>
+                          <div class="seats">
+                            <div class="seat_left"></div>
+                            <div class="seat_right"></div>
+                          </div>
+                          <div class="seats bottom-seats">
+                            <div class="seat_left"></div>
+                            <!--<div class="seat_right"></div>-->
+                          </div>
+                        </div>
+                        <div *ngIf="table.Seats==6">
+                          <div class="seats top-seats">
+                            <div class="seat_left"></div>
+                            <div class="seat_right"></div>
+                          </div>
+                          <div class="seats">
+                            <div class="seat_left"></div>
+                            <div class="seat_right"></div>
+                          </div>
+                          <div class="seats bottom-seats">
+                            <div class="seat_left"></div>
+                            <div class="seat_right"></div>
+                          </div>
+                        </div>
+                        <img src="./assets/app/media/img/icons/drag_btn.jpg" class="drag_btn_round">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="table.TableType== 'Round' && table.TableStatus== 'Occupied'" class="m-portlet m-portlet--mobile">
+                  <div class="m-portlet-circle">
+                    <div class="m-portlet__head">
+                      <div class="reserved_table seating_table table_two_seated  ">
+                        <button class="del_table" (click)="delete(table._id)">delete</button>
+                        <div class="number_of_seats">Persons: {{table.Seats}}</div>
+                        <div *ngIf="table.Seats==2">
+                          <div class="seats top-seats">
+                            <div class="seat_left occupied_seat"></div>
+                            <div class="seat_right occupied_seat"></div>
+                          </div>
+                          <div class="seats">
+                            <!--<div class="seat_left"></div>
+                <div class="seat_right"></div>-->
+                          </div>
+                          <div class="seats bottom-seats">
+                            <!--<div class="seat_left"></div>
+                <div class="seat_right"></div>-->
+                          </div>
+                        </div>
+                        <div *ngIf="table.Seats==3">
+                          <div class="seats top-seats">
+                            <div class="seat_left occupied_seat"></div>
+                            <div class="seat_right occupied_seat"></div>
+                          </div>
+                          <div class="seats">
+                            <div class="seat_left occupied_seat"></div>
+                            <!--<div class="seat_right"></div>-->
+                          </div>
+                          <div class="seats bottom-seats">
+                            <!--<div class="seat_left"></div>
+                <div class="seat_right"></div>-->
+                          </div>
+                        </div>
+                        <div *ngIf="table.Seats==4">
+                          <div class="seats top-seats">
+                            <div class="seat_left occupied_seat"></div>
+                            <div class="seat_right occupied_seat"></div>
+                          </div>
+                          <div class="seats">
+                            <div class="seat_left occupied_seat"></div>
+                            <div class="seat_right occupied_seat"></div>
+                          </div>
+                          <div class="seats bottom-seats">
+                            <!--<div class="seat_left"></div>
+                <div class="seat_right"></div>-->
+                          </div>
+                        </div>
+                        <div *ngIf="table.Seats==5">
+                          <div class="seats top-seats">
+                            <div class="seat_left occupied_seat"></div>
+                            <div class="seat_right occupied_seat"></div>
+                          </div>
+                          <div class="seats">
+                            <div class="seat_left occupied_seat"></div>
+                            <div class="seat_right occupied_seat"></div>
+                          </div>
+                          <div class="seats bottom-seats">
+                            <div class="seat_left occupied_seat"></div>
+                            <!--<div class="seat_right"></div>-->
+                          </div>
+                        </div>
+                        <div *ngIf="table.Seats==6">
+                          <div class="seats top-seats">
+                            <div class="seat_left occupied_seat"></div>
+                            <div class="seat_right occupied_seat"></div>
+                          </div>
+                          <div class="seats">
+                            <div class="seat_left occupied_seat"></div>
+                            <div class="seat_right occupied_seat"></div>
+                          </div>
+                          <div class="seats bottom-seats">
+                            <div class="seat_left occupied_seat"></div>
+                            <div class="seat_right occupied_seat"></div>
+                          </div>
+                        </div>
+                        <img src="./assets/app/media/img/icons/drag_btn.jpg" class="drag_btn_round">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="table.TableType== 'Round' && table.TableStatus== 'Reserved'" class="m-portlet m-portlet--mobile">
+                  <div class="m-portlet-circle">
+                    <div class="m-portlet__head">
+                      <div class="reserved_table seating_table table_two_seated  ">
+                        <button class="del_table" (click)="delete(table._id)">delete</button>
+                        <div class="number_of_seats">Persons: {{table.Seats}}</div>
+                        <div *ngIf="table.Seats==2">
+                          <div class="seats top-seats">
+                            <div class="seat_left reserved_seat"></div>
+                            <div class="seat_right reserved_seat"></div>
+                          </div>
+                          <div class="seats">
+                            <!--<div class="seat_left"></div>
+                <div class="seat_right"></div>-->
+                          </div>
+                          <div class="seats bottom-seats">
+                            <!--<div class="seat_left"></div>
+                <div class="seat_right"></div>-->
+                          </div>
+                        </div>
+                        <div *ngIf="table.Seats==3">
+                          <div class="seats top-seats">
+                            <div class="seat_left reserved_seat"></div>
+                            <div class="seat_right reserved_seat"></div>
+                          </div>
+                          <div class="seats">
+                            <div class="seat_left reserved_seat"></div>
+                            <!--<div class="seat_right"></div>-->
+                          </div>
+                          <div class="seats bottom-seats">
+                            <!--<div class="seat_left"></div>
+                <div class="seat_right"></div>-->
+                          </div>
+                        </div>
+                        <div *ngIf="table.Seats==4">
+                          <div class="seats top-seats">
+                            <div class="seat_left reserved_seat"></div>
+                            <div class="seat_right reserved_seat"></div>
+                          </div>
+                          <div class="seats">
+                            <div class="seat_left reserved_seat"></div>
+                            <div class="seat_right reserved_seat"></div>
+                          </div>
+                          <div class="seats bottom-seats">
+                            <!--<div class="seat_left"></div>
+                <div class="seat_right"></div>-->
+                          </div>
+                        </div>
+                        <div *ngIf="table.Seats==5">
+                          <div class="seats top-seats">
+                            <div class="seat_left reserved_seat"></div>
+                            <div class="seat_right reserved_seat"></div>
+                          </div>
+                          <div class="seats">
+                            <div class="seat_left reserved_seat"></div>
+                            <div class="seat_right reserved_seat"></div>
+                          </div>
+                          <div class="seats bottom-seats">
+                            <div class="seat_left reserved_seat"></div>
+                            <!--<div class="seat_right"></div>-->
+                          </div>
+                        </div>
+                        <div *ngIf="table.Seats==6">
+                          <div class="seats top-seats">
+                            <div class="seat_left reserved_seat"></div>
+                            <div class="seat_right reserved_seat"></div>
+                          </div>
+                          <div class="seats">
+                            <div class="seat_left reserved_seat"></div>
+                            <div class="seat_right reserved_seat"></div>
+                          </div>
+                          <div class="seats bottom-seats">
+                            <div class="seat_left reserved_seat"></div>
+                            <div class="seat_right reserved_seat"></div>
+                          </div>
+                        </div>
+                        <img src="./assets/app/media/img/icons/drag_btn.jpg" class="drag_btn_round">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Edit table model End here-->
+<!--payment Model start here-->
+<div class="modal fade" id="payment_model" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title " id="exampleModalLabel">Payment Process</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            &times;
+          </span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+
+          <div class="offset-lg-3 col-lg-6">
+            <h3 class="text-center edit_table_sb_hd">Choose a table</h3>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row" *ngIf="ReservedTables!=undefined && ReservedTables!=null">
+                  <div class="col-lg-4" *ngFor="let reservedTbl of ReservedTables">
+                    <div (click)="GetCode(reservedTbl._id)" data-toggle="modal" data-target="#payment_model_step2" class="vacant_table m-portlet seating_table table_two_seated">
+                      <div class="number_of_seats">{{reservedTbl.TableReservationQuantity}}</div>
+                      <div class="table_reserved_details">
+                        <span class="table_reserved_name"></span>
+                        <span class="table_reserved_time"></span>
+                      </div>
+                      <div class="not_arrived_order"><span>Mr.</span> {{reservedTbl.FirstName}}</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--payment model End here-->
+<!--paymentstep-2 start here-->
+<div class="modal fade" id="payment_model_step2" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Payment Process</h5>
+        <button type="button" class="close" (click)="closeModalPopup('payment_model_step2')" aria-label="Close">
+          <span aria-hidden="true">
+            &times;
+          </span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="text-center edit_table_sb_hd">Generated code</h3>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <div class="vacant_table m-portlet seating_table table_two_seated">
+                      <div class="number_of_seats">{{PaymentUser.TableReservationQuantity}}</div>
+                      <div class="table_reserved_details">
+                        <span class="table_reserved_name"></span>
+                        <span class="table_reserved_time"></span>
+                      </div>
+                      <div class="not_arrived_order"><span>Mr.</span> {{PaymentUser.FirstName}} {{PaymentUser.LastName}} </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="code_generated">{{PaymentUser.ReservationCode}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="button" id="send-notification-btn" (click)="sendNotification()">
+          Send notification
+        </button>
+
+        <button (click)="GetUserOrders(PaymentUser.ReservationCode)" class="btn btn-primary" type="button">
+          Order summary
+        </button>
+        <button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#payment_model_step3">Open Modal</button>
+        <div class="notication-msg" [hidden]="show"><span>Notication Sent.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--payment step-2 End here-->
+<!--paymentstep-3 start here-->
+<div class="modal fade" id="payment_model_step3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title " id="exampleModalLabel">Payment Process</h5>
+        <button type="button" class="close" (click)="closeModalPopup('payment_model_step3')" aria-label="Close">
+          <span aria-hidden="true">
+            &times;
+          </span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="text-center edit_table_sb_hd">Order summary</h3>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <div class="vacant_table m-portlet seating_table table_two_seated">
+                      <div class="number_of_seats">{{PaymentUser.TableReservationQuantity}}</div>
+                      <div class="table_reserved_details">
+                        <span class="table_reserved_name"></span>
+                        <span class="table_reserved_time"></span>
+                      </div>
+                      <div class="not_arrived_order"><span>Mr.</span> {{PaymentUser.FirstName}} {{PaymentUser.LastName}}</div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-7">
+                    <div *ngIf="RecievedOrders.length>0">
+                      <div *ngIf="RecievedOrders.length>1">
+                        How would you like to generate bill
+                        <div class="custom-control custom-radio">
+                          <!--<input type="radio" class="custom-control-input" id="defaultChecked" name="defaultExampleRadios" checked>
+                          <label class="custom-control-label" for="defaultChecked">Default checked</label>-->
+                          <input type="radio" class="custom-control-input" id="Single" name="billtype" value="Single" [(ngModel)]="billtype" checked />
+                          <label class="custom-control-label" for="Single">Single</label>
+
+
+                        </div>
+                        <div class="custom-control custom-radio">
+                          <input type="radio" class="custom-control-input" id="Split" name="billtype" value="Split" [(ngModel)]="billtype" />
+                          <label class="custom-control-label" for="Split">Split</label>
+                        </div>
+
+                        <br />
+                      </div>
+                      <div *ngIf="billtype=='Single'">
+
+                        <div *ngFor="let UserOrder of RecievedOrders">
+                          <table class="total_order_summary" *ngIf="UserOrder!=undefined">
+                            <tr *ngFor="let order of UserOrder.OrderDetails.OrderdItems">
+                              <td>{{order.ProductName}}</td>
+                              <td>{{order.ProductPrice.$numberDecimal}} X {{order.ProductQty}}</td>
+                              <td>{{order.ProductPrice.$numberDecimal*order.ProductQty | currency:'EUR':true}}</td>
+                            </tr>
+                            <tr *ngIf="UserOrder.OrderExtras.length>0">
+                              <td>Extra(s)</td>
+                            </tr>
+                            <tr *ngFor="let extra of UserOrder.OrderExtras">
+                              <td>{{extra.ProductName}}</td>
+                              <td>{{extra.ProductPrice.$numberDecimal}} X {{extra.ProductQty}}</td>
+                              <td>{{extra.ProductPrice.$numberDecimal*extra.ProductQty | currency:'EUR':true}}</td>
+                            </tr>
+                          </table>
+
+                        </div>
+                        <table class="total_order_summary">
+                          <tr>
+                            <td>Add Tip</td>
+                            <td></td>
+                            <td width="30%">
+                              <div>
+                                <span style="width:20%;margin-top:5px">€</span>
+                                <span style="display:inline-block;width:80%"><input name="Title" #name="ngModel" [(ngModel)]="RestaurantTipAmnt" type="text" class="form-control" id="tip" placeholder="Tip"></span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr class="total_payable">
+                            <td colspan="3">Total =<span class="total_payment_amout"> €{{ConvertToFloat(OrdersTotalBill)   + ConvertToFloat(RestaurantTipAmnt)}} </span></td>
+                          </tr>
+
+                        </table>
+                      </div>
+                      <div *ngIf="billtype=='Split'">
+                        <div *ngFor="let UserOrder of RecievedOrders">
+                          <table class="total_order_summary" *ngIf="UserOrder!=undefined">
+                            <tr *ngFor="let order of UserOrder.OrderDetails.OrderdItems">
+                              <td>{{order.ProductName}}</td>
+                              <td>{{order.ProductPrice.$numberDecimal}} X {{order.ProductQty}}</td>
+                              <td>{{order.ProductPrice.$numberDecimal*order.ProductQty | currency:'EUR':true}}</td>
+                            </tr>
+                            <tr *ngIf="UserOrder.OrderExtras.length>0">
+                              <td>Extra(s)</td>
+                            </tr>
+                            <tr *ngFor="let extra of UserOrder.OrderExtras">
+                              <td>{{extra.ProductName}}</td>
+                              <td>{{extra.ProductPrice.$numberDecimal}} X {{extra.ProductQty}}</td>
+                              <td>{{extra.ProductPrice.$numberDecimal*extra.ProductQty | currency:'EUR':true}}</td>
+                            </tr>
+                            <tr>
+                              <td>Add Tip</td>
+                              <td></td>
+                              <td width="30%">
+                                <div>
+                                  <span style="width:20%;margin-top:5px">€</span>
+                                  <span style="display:inline-block;width:80%"><input name="Title" #name="ngModel" [(ngModel)]="UserOrder.Tips" type="text" class="form-control" id="tip" placeholder="Tip"></span>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr class="total_payable">
+                              <td colspan="3">Total =<span class="total_payment_amout"> €{{ConvertToFloat(UserOrder.TotalPrice.$numberDecimal)   + ConvertToFloat(UserOrder.Tips)}}</span></td>
+                            </tr>
+                          </table>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="RecievedOrders.length<=0">
+                      No Orders
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="button" [disabled]="RecievedOrders.length == 0">
+          Send notification
+        </button>
+
+        <button data-toggle="modal" data-target="#payment_model_step4" class="btn btn-primary" type="button" [disabled]="RecievedOrders.length == 0">
+          Payment
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--payment step-3 End here-->
+<!--paymentstep-4 start here-->
+<div class="modal fade" id="payment_model_step4" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Payment Process</h5>
+        <button type="button" class="close" (click)="closeModalPopup('payment_model_step3')" aria-label="Close">
+          <span aria-hidden="true">
+            &times;
+          </span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="text-center edit_table_sb_hd">Processing payment</h3>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <div class="vacant_table m-portlet seating_table table_two_seated">
+                      <div class="number_of_seats">06</div>
+                      <div class="table_reserved_details">
+                        <span class="table_reserved_name"></span>
+                        <span class="table_reserved_time"></span>
+                      </div>
+                      <div class="not_arrived_order"><span>Mr.</span> Duck</div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="total_order_summary">
+                      <div class="waiting_payment">Waiting on payment from customer</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button data-toggle="modal" data-target="#payment_model_step5" (click)="checkComplete(UserOrders.UserId,RecievedOrders)" class="btn btn-primary" type="button">
+          Checkout complete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--payment step-4 End here-->
+<!--paymentstep-4 start here-->
+<div class="modal fade" id="payment_model_step5" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title " id="exampleModalLabel">Payment Process</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            &times;
+          </span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="text-center edit_table_sb_hd">Checkout complete</h3>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <div class="vacant_table m-portlet seating_table table_two_seated">
+                      <div class="number_of_seats">06</div>
+                      <div class="table_reserved_details">
+                        <span class="table_reserved_name"></span>
+                        <span class="table_reserved_time"></span>
+                      </div>
+                      <div class="not_arrived_order"><span>Mr.</span> Duck</div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-7">
+                    <div class="total_order_summary">
+                      <div class="complete_pay_summary">
+                        <div class="completed_icn"><i class="la la-check"></i></div>
+                        <h6>Payment received</h6>
+                        <p><i class="la la-print"></i> print receipt</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--payment step-4 End here-->
