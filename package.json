@@ -44,7 +44,7 @@
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "mongodb": "^2.2.33",
-    "mongoose": "^5.1.5",
+    "mongoose": "^5.7.5",
     "ng-pick-datetime": "^7.0.0",
     "ng2-daterangepicker": "^2.0.12",
     "primeng": "^6.0.0-rc.1",
