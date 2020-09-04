@@ -43,7 +43,7 @@
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
-    "mongodb": "^2.2.33",
+    "mongodb": "^3.1.13",
     "mongoose": "^5.1.5",
     "ng-pick-datetime": "^7.0.0",
     "ng2-daterangepicker": "^2.0.12",
