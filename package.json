@@ -33,7 +33,7 @@
     "emailjs": "^2.2.0",
     "express-fileupload": "^0.4.0",
     "express-mailer": "^0.3.1",
-    "file-type": "^8.1.0",
+    "file-type": "^16.5.4",
     "font-awesome": "^4.7.0",
     "fullcalendar": "^3.9.0",
     "geodist": "^0.2.1",
